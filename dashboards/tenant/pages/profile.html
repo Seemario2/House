@@ -1,0 +1,267 @@
+open
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile | Oluwanjoba Homes Tenant</title>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../../css/globals.css">
+    <link rel="stylesheet" href="../../../css/components/dashboard.css">
+    <style>
+        .dashboard-content {
+            padding: 2rem;
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 2rem;
+        }
+
+        .profile-card {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+            text-align: center;
+        }
+
+        .profile-form-card {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .profile-avatar-large {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 1.5rem;
+            border: 4px solid var(--primary-light);
+            padding: 5px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: var(--radius-sm);
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <a href="../../../index.html" class="logo">
+                <i class="fas fa-home-alt"></i> Oluwanjoba <span>Homes</span>
+            </a>
+            <nav class="sidebar-menu">
+                <a href="../index.html" class="menu-item">
+                    <i class="fas fa-th-large"></i> Dashboard
+                </a>
+                <a href="applied-properties.html" class="menu-item">
+                    <i class="fas fa-building"></i> Applied Properties
+                </a>
+                <a href="chat.html" class="menu-item">
+                    <i class="fas fa-comment-dots"></i> Chat
+                </a>
+                <a href="notifications.html" class="menu-item">
+                    <i class="fas fa-bell"></i> Notifications
+                </a>
+                <a href="profile.html" class="menu-item active">
+                    <i class="fas fa-user-circle"></i> Profile
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="../../../login.html" class="menu-item">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </div>
+        </aside>
+
+        <div class="sidebar-overlay"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Nav -->
+            <nav class="top-nav">
+                <button class="sidebar-toggle"><i class="fas fa-bars"></i></button>
+                <div class="nav-right">
+                    <button class="nav-icon-btn">
+                        <i class="fas fa-comment"></i>
+                        <span class="notification-badge">2</span>
+                    </button>
+                    <button class="nav-icon-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">5</span>
+                    </button>
+                    <div class="user-profile">
+                        <img src="https://ui-avatars.com/api/?name=John+Doe&background=4F46E5&color=fff" alt="User"
+                            class="user-img">
+                        <div class="user-info">
+                            <span class="name">John Doe</span>
+                            <span class="role">Tenant</span>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="dashboard-content">
+                <div class="section-header">
+                    <h2>My Profile</h2>
+                    <p>Manage your account settings and rental preferences.</p>
+                </div>
+
+                <div class="profile-grid">
+                    <div class="profile-card">
+                        <img src="https://ui-avatars.com/api/?name=John+Doe&background=4F46E5&color=fff&size=200"
+                            alt="Avatar" class="profile-avatar-large" id="profileAvatarBig">
+                        <h3 id="profileNameBig">John Doe</h3>
+                        <p id="profileRoleBig" style="color: var(--text-muted); margin-bottom: 1.5rem;">Verified Tenant
+                        </p>
+
+                        <input type="file" id="avatarInput" accept="image/*" style="display: none;"
+                            onchange="handleAvatarUpload(this)">
+                        <button class="btn btn-outline btn-sm w-100"
+                            onclick="document.getElementById('avatarInput').click()">
+                            <i class="fas fa-camera"></i> Change Photo
+                        </button>
+                        <p id="uploadStatus" class="mt-2 text-sm text-muted" style="display: none;"></p>
+                    </div>
+
+                    <div class="profile-form-card">
+                        <form>
+                            <div class="grid-2">
+                                <div class="form-group">
+                                    <label>First Name</label>
+                                    <input type="text" class="form-control" value="John">
+                                </div>
+                                <div class="form-group">
+                                    <label>Last Name</label>
+                                    <input type="text" class="form-control" value="Doe">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <input type="email" class="form-control" value="john.doe@example.com">
+                            </div>
+                            <div class="form-group">
+                                <label>Phone Number</label>
+                                <input type="tel" class="form-control" value="+1 (555) 000-0000">
+                            </div>
+                            <div class="form-group">
+                                <label>Bio</label>
+                                <textarea class="form-control" rows="4"
+                                    placeholder="Tell landlords a bit about yourself...">Looking for a long-term rental in a quiet neighborhood. I have a stable job as a software engineer and a great rental history.</textarea>
+                            </div>
+                            <div style="display: flex; justify-content: flex-end; gap: 1rem;">
+                                <button type="button" class="btn btn-outline">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../../js/api.js"></script>
+    <script src="../../../js/shared.js"></script>
+    <script>
+        // Init Profile Page
+        document.addEventListener('DOMContentLoaded', () => {
+            const userStr = localStorage.getItem('user');
+            if (!userStr) return;
+
+            const user = JSON.parse(userStr);
+
+            // Populate Fields
+            document.getElementById('profileAvatarBig').src = window.renderUserAvatar(user, 200);
+            document.getElementById('profileNameBig').textContent = user.full_name;
+            document.getElementById('profileRoleBig').textContent = user.role.charAt(0).toUpperCase() + user.role.slice(1);
+
+            // Populate Top Nav (if not handled by shared.js completely)
+            const topNavName = document.querySelector('.user-info .name');
+            const topNavRole = document.querySelector('.user-info .role');
+            if (topNavName) topNavName.textContent = user.full_name;
+            if (topNavRole) topNavRole.textContent = user.role;
+        });
+
+        async function handleAvatarUpload(input) {
+            const file = input.files[0];
+            if (!file) return;
+
+            const status = document.getElementById('uploadStatus');
+            const btn = input.nextElementSibling;
+
+            status.style.display = 'block';
+            status.textContent = 'Uploading...';
+            status.className = 'mt-2 text-sm text-primary';
+            btn.disabled = true;
+
+            try {
+                const res = await window.api.uploadAvatar(file);
+
+                // Update Local User Object
+                const user = JSON.parse(localStorage.getItem('user'));
+                user.avatar_url = res.avatar_url;
+                localStorage.setItem('user', JSON.stringify(user));
+
+                // Update UI
+                document.getElementById('profileAvatarBig').src = res.avatar_url;
+                // Update Sidebar/Topnav via shared helper if available or reload
+                const topNavImg = document.querySelector('.user-profile .user-img');
+                if (topNavImg) topNavImg.src = res.avatar_url;
+
+                status.textContent = 'Upload successful!';
+                status.className = 'mt-2 text-sm text-success';
+                setTimeout(() => status.style.display = 'none', 3000);
+            } catch (err) {
+                console.error(err);
+                status.textContent = 'Upload failed.';
+                status.className = 'mt-2 text-sm text-danger';
+            } finally {
+                btn.disabled = false;
+                input.value = ''; // Reset
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+<div class="section-header">
+    <div>
+        <h2>Performance Overview</h2>
+        <p>Monitor your listings and tenant applications.</p>
+    </div>
+    <button class="btn btn-primary" onclick="Dashboard.loadPage('properties')"><i class="fas fa-plus"></i> Add
+        Property</button>
+</div>
+
+<div class="grid-3">
+    <div class="analytics-card">
+        <h4>Application Trends</h4>
+        <canvas id="applicationsChart"></canvas>
+    </div>
+    <div class="analytics-card">
+        <h4>Views per Property</h4>
+        <canvas id="viewsChart"></canvas>
+    </div>
+    <div class="analytics-card">
+        <div class="list-header" style="margin-bottom: 1rem;">
+            <h4>Recent Applications</h4>
+            <a href="#" onclick="Dashboard.loadPage('applications')"
+                style="font-size: 0.8rem; color: var(--primary)">View All</a>
+        </div>
+        <div id="recentAppsContainer" class="recent-apps">
+            <!-- Applications will be injected here -->
+            <div class="flex-center" style="padding: 2rem;">
+                <i class="fas fa-spinner fa-spin"></i>
+            </div>
+        </div>
+    </div>
+</div>

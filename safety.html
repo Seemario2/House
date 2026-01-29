@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safety Center | Oluwanjoba Homes</title>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/globals.css">
+    <link rel="stylesheet" href="css/index.css">
+    <style>
+        .page-header {
+            background-color: var(--bg-dark);
+            color: white;
+            padding: 120px 0 60px;
+            text-align: center;
+        }
+
+        .safety-section {
+            padding: 4rem 0;
+        }
+
+        .safety-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 4rem;
+        }
+
+        .safety-content h2 {
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+        }
+
+        .safety-content p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .safety-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .safety-list li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .safety-list li::before {
+            content: '\f058';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: #2ecc71;
+        }
+
+        .emergency-box {
+            background: #fff5f5;
+            border-left: 5px solid #e74c3c;
+            padding: 2rem;
+            border-radius: var(--radius);
+            margin-top: 2rem;
+        }
+
+        .emergency-box h3 {
+            color: #c0392b;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .safety-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .safety-grid:nth-child(even) .safety-img {
+                order: -1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar" style="background: white; box-shadow: var(--shadow-sm);">
+        <div class="container flex-between">
+            <a href="index.html" class="logo">
+                <i class="fas fa-home-alt"></i> Oluwanjoba <span>Homes</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html" style="color: var(--text-main);">Home</a></li>
+                <li><a href="properties.html" style="color: var(--text-main);">Properties</a></li>
+                <li><a href="about.html" style="color: var(--text-main);">About Us</a></li>
+                <li><a href="contact.html" style="color: var(--text-main);">Contact</a></li>
+                <li><a href="login.html" class="btn btn-outline">Login</a></li>
+                <li><a href="signup.html" class="btn btn-primary">Join Now</a></li>
+            </ul>
+            <button class="mobile-menu-btn" style="color: var(--bg-dark);"><i class="fas fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Trust & Safety</h1>
+            <p>Your security is our top priority. Learn how we keep you safe.</p>
+        </div>
+    </section>
+
+    <!-- Safety Content -->
+    <section class="safety-section">
+        <div class="container">
+
+            <!-- For Tenants -->
+            <div class="safety-grid">
+                <div class="safety-content">
+                    <h2>For Tenants</h2>
+                    <p>We implement rigorous checks to ensure every listing on our platform is legitimate and every
+                        landlord is verified.</p>
+                    <ul class="safety-list">
+                        <li>Verified Landlords: We check ID and ownership documents.</li>
+                        <li>Secure Payments: Never pay cash. Use our secure platform.</li>
+                        <li>Scam Protection: AI-driven fraud detection systems.</li>
+                        <li>Virtual Tours: Verify properties remotely before visiting.</li>
+                    </ul>
+                </div>
+                <div class="safety-img">
+                    <img src="https://images.unsplash.com/photo-1581578731117-104f8a3d46a8?auto=format&fit=crop&w=600&h=400"
+                        alt="Safe Key Handover"
+                        style="border-radius: var(--radius-lg); width: 100%; box-shadow: var(--shadow-md);">
+                </div>
+            </div>
+
+            <!-- For Landlords -->
+            <div class="safety-grid">
+                <div class="safety-img">
+                    <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=600&h=400"
+                        alt="Document Verification"
+                        style="border-radius: var(--radius-lg); width: 100%; box-shadow: var(--shadow-md);">
+                </div>
+                <div class="safety-content">
+                    <h2>For Landlords</h2>
+                    <p>Protect your property and investment with our comprehensive tenant screening and insurance
+                        options.</p>
+                    <ul class="safety-list">
+                        <li>Tenant Screening: Credit checks, background checks, and eviction history.</li>
+                        <li>Rent Guarantee: Options to ensure you get paid even if tenants default.</li>
+                        <li>Damage Protection: Security deposit handling and insurance.</li>
+                        <li>Legal Support: Access to standard lease agreements and legal notices.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Reporting -->
+            <div class="emergency-box">
+                <h3><i class="fas fa-exclamation-triangle"></i> Report Suspicious Activity</h3>
+                <p>If you encounter anything suspicious or believe you have been the target of a scam, please report it
+                    immediately to our safety team at safety@oluwanjobahomes.com or call our 24/7 hotline.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container grid-4">
+            <div class="footer-brand">
+                <a href="#" class="logo text-white">Oluwanjoba <span>Homes</span></a>
+                <p>Leading the market in modern property rentals and management solutions.</p>
+                <div class="socials">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="careers.html">Careers</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="safety.html">Safety</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Newsletter</h4>
+                <div class="newsletter-form">
+                    <input type="email" placeholder="Email address">
+                    <button class="btn btn-primary">Subscribe</button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Oluwanjoba Homes. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/shared.js"></script>
+</body>
+
+</html>

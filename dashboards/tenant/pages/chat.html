@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages | Oluwanjoba Homes Tenant</title>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../../css/globals.css">
+    <link rel="stylesheet" href="../../../css/components/dashboard.css">
+    <link rel="stylesheet" href="../../../css/components/chat.css">
+    <style>
+        .chat-container-full {
+            height: calc(100vh - 180px);
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            overflow: hidden;
+        }
+
+        .chat-sidebar {
+            width: 300px;
+            border-right: 1px solid #eee;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-list {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .chat-user-item {
+            padding: 1.25rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            cursor: pointer;
+            border-bottom: 1px solid #f8f9fa;
+            transition: var(--transition);
+        }
+
+        .chat-user-item:hover {
+            background: #f8f9fa;
+        }
+
+        .chat-user-item.active {
+            background: #eef2ff;
+            border-left: 4px solid var(--primary);
+        }
+
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .user-preview h4 {
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .user-preview p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .chat-main-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-main-header {
+            padding: 1.25rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-messages-full {
+            flex: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+            background: #f9fafb;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .chat-input-full {
+            padding: 1.25rem;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .chat-input-full input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: var(--radius-sm);
+            outline: none;
+        }
+
+        .chat-input-full input:focus {
+            border-color: var(--primary);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <a href="../../../index.html" class="logo">
+                <i class="fas fa-home-alt"></i> Oluwanjoba <span>Homes</span>
+            </a>
+            <nav class="sidebar-menu">
+                <a href="../index.html" class="menu-item">
+                    <i class="fas fa-th-large"></i> Dashboard
+                </a>
+                <a href="applied-properties.html" class="menu-item">
+                    <i class="fas fa-building"></i> Applied Properties
+                </a>
+                <a href="chat.html" class="menu-item active">
+                    <i class="fas fa-comment-dots"></i> Chat
+                </a>
+                <a href="notifications.html" class="menu-item">
+                    <i class="fas fa-bell"></i> Notifications
+                </a>
+                <a href="profile.html" class="menu-item">
+                    <i class="fas fa-user-circle"></i> Profile
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="../../../login.html" class="menu-item">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </div>
+        </aside>
+
+        <div class="sidebar-overlay"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Nav -->
+            <nav class="top-nav">
+                <button class="sidebar-toggle"><i class="fas fa-bars"></i></button>
+                <div class="nav-right">
+                    <button class="nav-icon-btn">
+                        <i class="fas fa-comment"></i>
+                        <span class="notification-badge">2</span>
+                    </button>
+                    <button class="nav-icon-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">5</span>
+                    </button>
+                    <div class="user-profile">
+                        <img src="https://ui-avatars.com/api/?name=John+Doe&background=4F46E5&color=fff" alt="User"
+                            class="user-img">
+                        <div class="user-info">
+                            <span class="name">John Doe</span>
+                            <span class="role">Tenant</span>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="dashboard-content">
+                <div class="section-header">
+                    <h2>Messages</h2>
+                    <p>Communicate directly with landlords and property managers.</p>
+                </div>
+
+                <div class="chat-container-full">
+                    <div class="chat-sidebar">
+                        <div class="chat-list" id="chatList">
+                            <!-- Populated by JS -->
+                            <div class="text-center" style="padding: 2rem; color: var(--text-muted);">
+                                <i class="fas fa-spinner fa-spin"></i> Loading contacts...
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chat-main-area">
+                        <div class="chat-main-header">
+                            <div class="flex-center" style="gap: 1rem">
+                                <img src="https://ui-avatars.com/api/?name=Robert+Wilson&background=10B981&color=fff"
+                                    alt="" class="user-avatar" style="width: 40px; height: 40px;">
+                                <div>
+                                    <h4 style="font-size: 1rem;">Robert Wilson</h4>
+                                    <span style="font-size: 0.75rem; color: var(--success);"><i class="fas fa-circle"
+                                            style="font-size: 0.5rem; vertical-align: middle;"></i> Online</span>
+                                </div>
+                            </div>
+                            <button class="btn btn-outline btn-sm"><i class="fas fa-ellipsis-v"></i></button>
+                        </div>
+
+                        <div class="chat-messages-full" id="chatMessages">
+                            <!-- Messages will appear here -->
+                        </div>
+
+                        <div class="chat-input-full">
+                            <button class="btn btn-outline btn-sm"><i class="fas fa-paperclip"></i></button>
+                            <input type="text" class="chat-input" id="chatInput" placeholder="Type your message...">
+                            <button class="btn btn-primary send-btn" id="sendBtn"><i
+                                    class="fas fa-paper-plane"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../../js/api.js"></script>
+    <script src="../../../js/shared.js"></script>
+    <script src="../../../js/socket.js"></script>
+    <script src="../../../js/components/chat.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const user = JSON.parse(localStorage.getItem('user'));
+            if (!user) return;
+
+            const chatList = document.getElementById('chatList');
+            const params = new URLSearchParams(window.location.search);
+            const chatWithId = params.get('chat_with');
+
+            try {
+                // Fetch applications to find landlords
+                const applications = await window.api.getTenantApplications(user.id);
+
+                // Extract unique landlords from applications
+                // Note: The API currently returns property object which might not have owner info directly populated 
+                // heavily depending on backend model. Assuming property object has owner_id. 
+                // If not, we might need to fetch property details. 
+                // Let's assume for now we can get owner info. 
+                // Actually, looking at main.py get_tenant_applications, it returns property: {id, title, location...} but NO owner_id.
+                // We need to fetch property details to get owner_id or update backend. 
+                // FOR NOW: Let's fetch all properties to lookup owner.
+
+                const allProperties = await window.api.getProperties();
+                const propertyMap = {};
+                allProperties.forEach(p => propertyMap[p.id] = p);
+
+                const landlords = {};
+
+                applications.forEach(app => {
+                    const prop = propertyMap[app.property.id];
+                    if (prop && prop.owner_id) {
+                        // We need landlord name. The API doesn't expose owner name on property object easily without join.
+                        // Mocking landlord name based on owner_id for this demo if not available.
+                        // In a real app we'd have a /users/{id} endpoint or include owner info in property.
+                        landlords[prop.owner_id] = {
+                            id: prop.owner_id,
+                            name: `Landlord ${prop.owner_id}`, // Placeholder
+                            avatar: `https://ui-avatars.com/api/?name=Landlord+${prop.owner_id}&background=random&color=fff`,
+                            property_title: prop.title
+                        };
+                    }
+                });
+
+                // Render list
+                chatList.innerHTML = '';
+                const landlordIds = Object.keys(landlords);
+
+                if (landlordIds.length === 0) {
+                    chatList.innerHTML = '<div style="padding:1rem;">No active conversations. Apply to a property to start chatting!</div>';
+                }
+
+                landlordIds.forEach(id => {
+                    const l = landlords[id];
+                    const div = document.createElement('div');
+                    div.className = 'chat-user-item';
+                    if (chatWithId == id) div.classList.add('active');
+
+                    div.innerHTML = `
+                        <img src="${l.avatar}" class="user-avatar">
+                        <div class="user-preview">
+                            <h4>${l.name}</h4>
+                            <p>Property: ${l.property_title}</p>
+                        </div>
+                    `;
+
+                    div.onclick = () => {
+                        document.querySelectorAll('.chat-user-item').forEach(i => i.classList.remove('active'));
+                        div.classList.add('active');
+                        window.ChatComponent.setActiveReceiver(l.id, l.name, l.avatar);
+                    };
+
+                    chatList.appendChild(div);
+
+                    if (chatWithId == id) {
+                        window.ChatComponent.setActiveReceiver(l.id, l.name, l.avatar);
+                    }
+                });
+
+            } catch (err) {
+                console.error(err);
+                chatList.innerHTML = '<div style="color:red; padding:1rem;">Failed to load contacts.</div>';
+            }
+        });
+    </script>
+</body>
+
+</html>

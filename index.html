@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oluwanjoba Homes | Premium Property Rental Platform</title>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/globals.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+
+    <!-- Transparent Navbar -->
+    <nav class="navbar glass">
+        <div class="container flex-between">
+            <a href="index.html" class="logo">
+                <i class="fas fa-home-alt"></i> Oluwanjoba <span>Homes</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="properties.html">Properties</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="login.html" class="btn btn-outline">Login</a></li>
+                <li><a href="signup.html" class="btn btn-primary">Join Now</a></li>
+            </ul>
+            <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+            <h1>Find Your Next <br><span>Perfect Home</span></h1>
+            <p>Modern property management for landlords and tenants. Seamless, secure, and smart.</p>
+
+            <div class="search-bar glass">
+                <div class="search-item">
+                    <label>Location</label>
+                    <input type="text" placeholder="Where are you looking?" id="homeSearchLocation">
+                </div>
+                <div class="search-divider"></div>
+                <div class="search-item">
+                    <label>Property Type</label>
+                    <select id="homeSearchType">
+                        <option value="">Any Type</option>
+                        <option value="apartment">Apartment</option>
+                        <option value="house">House</option>
+                        <option value="condo">Condo</option>
+                    </select>
+                </div>
+                <div class="search-divider"></div>
+                <div class="search-item">
+                    <label>Price Range</label>
+                    <select id="homeSearchPrice" style="border: none; outline: none; width: 100%;">
+                        <option value="">Any Price</option>
+                        <option value="0-1000">Under $1,000</option>
+                        <option value="1000-2000">$1,000 - $2,000</option>
+                        <option value="2000+">$2,000+</option>
+                    </select>
+                </div>
+                <button class="search-btn" id="homeSearchBtn"><i class="fas fa-search"></i> Search</button>
+            </div>
+            <script>
+                document.getElementById('homeSearchBtn').addEventListener('click', () => {
+                    const location = document.getElementById('homeSearchLocation').value;
+                    const type = document.getElementById('homeSearchType').value;
+                    const price = document.getElementById('homeSearchPrice').value;
+
+                    const params = new URLSearchParams();
+                    if (location) params.append('location', location);
+                    if (type) params.append('type', type);
+                    if (price) params.append('price', price);
+
+                    window.location.href = `properties.html?${params.toString()}`;
+                });
+            </script>
+        </div>
+    </section>
+
+
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container stats-grid">
+            <div class="stat-item">
+                <h3>500+</h3>
+                <p>Premium Listings</p>
+            </div>
+            <div class="stat-item">
+                <h3>2k+</h3>
+                <p>Happy Tenants</p>
+            </div>
+            <div class="stat-item">
+                <h3>150+</h3>
+                <p>Verified Landlords</p>
+            </div>
+            <div class="stat-item">
+                <h3>50+</h3>
+                <p>Cities Covered</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Properties -->
+    <section id="featured" class="featured-section container">
+        <div class="section-header">
+            <h2>Featured Properties</h2>
+            <p>Discover our top-rated listings this week</p>
+        </div>
+
+        <div class="property-grid" id="propertyGrid">
+            <!-- Property cards will be injected here or hardcoded for demo -->
+            <div class="property-card">
+                <div class="property-img">
+                    <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=800"
+                        alt="Modern Villa">
+                    <span class="price-tag">$3,200/mo</span>
+                </div>
+                <div class="property-info">
+                    <h3>Skyline Modern Villa</h3>
+                    <p class="location"><i class="fas fa-map-marker-alt"></i> Beverly Hills, CA</p>
+                    <div class="features">
+                        <span><i class="fas fa-bed"></i> 4 Beds</span>
+                        <span><i class="fas fa-bath"></i> 3 Baths</span>
+                        <span><i class="fas fa-expand-arrows-alt"></i> 2,400 sqft</span>
+                    </div>
+                    <a href="property-detail.html?id=1" class="btn btn-primary w-full">View Details</a>
+                </div>
+            </div>
+
+            <div class="property-card">
+                <div class="property-img">
+                    <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800"
+                        alt="Urban Studio">
+                    <span class="price-tag">$1,800/mo</span>
+                </div>
+                <div class="property-info">
+                    <h3>Urban Minimalist Studio</h3>
+                    <p class="location"><i class="fas fa-map-marker-alt"></i> Manhattan, NY</p>
+                    <div class="features">
+                        <span><i class="fas fa-bed"></i> 1 Bed</span>
+                        <span><i class="fas fa-bath"></i> 1 Bath</span>
+                        <span><i class="fas fa-expand-arrows-alt"></i> 850 sqft</span>
+                    </div>
+                    <a href="property-detail.html?id=2" class="btn btn-primary w-full">View Details</a>
+                </div>
+            </div>
+
+            <div class="property-card">
+                <div class="property-img">
+                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800"
+                        alt="Lakeside House">
+                    <span class="price-tag">$2,500/mo</span>
+                </div>
+                <div class="property-info">
+                    <h3>Azure Lakeside House</h3>
+                    <p class="location"><i class="fas fa-map-marker-alt"></i> Austin, TX</p>
+                    <div class="features">
+                        <span><i class="fas fa-bed"></i> 3 Beds</span>
+                        <span><i class="fas fa-bath"></i> 2 Baths</span>
+                        <span><i class="fas fa-expand-arrows-alt"></i> 1,800 sqft</span>
+                    </div>
+                    <a href="property-detail.html?id=3" class="btn btn-primary w-full">View Details</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="process-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>How It Works</h2>
+                <p>Your journey to a new home in 3 simple steps</p>
+            </div>
+            <div class="process-grid">
+                <div class="process-card">
+                    <div class="process-icon"><i class="fas fa-search"></i></div>
+                    <h3>Search</h3>
+                    <p style="color: #666;">Browse thousands of verified listings with immersive viewing experiences.
+                    </p>
+                </div>
+                <div class="process-card">
+                    <div class="process-icon"><i class="fas fa-file-signature"></i></div>
+                    <h3>Apply</h3>
+                    <p style="color: #666;">Submit digital applications instantly and track status in real-time.</p>
+                </div>
+                <div class="process-card">
+                    <div class="process-icon"><i class="fas fa-key"></i></div>
+                    <h3>Move In</h3>
+                    <p style="color: #666;">Sign the lease, pay securely, and get your keys to your new home.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Explore Cities -->
+    <section class="city-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Explore by City</h2>
+                <p>Popular locations our users love</p>
+            </div>
+            <div class="city-grid">
+                <div class="city-card">
+                    <img src="https://images.unsplash.com/photo-1496417263034-38ec4f0d6b21?auto=format&fit=crop&w=800"
+                        class="city-img" alt="New York">
+                    <div class="city-overlay">
+                        <h3>New York</h3>
+                        <p>120+ Listings</p>
+                    </div>
+                </div>
+                <div class="city-card">
+                    <img src="https://images.unsplash.com/photo-1534237710431-e2fc698436d0?auto=format&fit=crop&w=800"
+                        class="city-img" alt="Los Angeles">
+                    <div class="city-overlay">
+                        <h3>Los Angeles</h3>
+                        <p>85+ Listings</p>
+                    </div>
+                </div>
+                <div class="city-card">
+                    <img src="https://images.unsplash.com/photo-1506765515384-028b60a970df?auto=format&fit=crop&w=800"
+                        class="city-img" alt="Chicago">
+                    <div class="city-overlay">
+                        <h3>Chicago</h3>
+                        <p>60+ Listings</p>
+                    </div>
+                </div>
+                <div class="city-card">
+                    <img src="https://images.unsplash.com/photo-1542317148-8b4bdccb33ea?auto=format&fit=crop&w=800"
+                        class="city-img" alt="Austin">
+                    <div class="city-overlay">
+                        <h3>Austin</h3>
+                        <p>45+ Listings</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Testimonials</h2>
+                <p>What our clients say about us</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <img src="https://i.pravatar.cc/150?img=32" class="testimonial-avatar" alt="User">
+                        <div>
+                            <h4 style="margin:0;">Emily R.</h4>
+                            <div style="color:#ffc107; font-size:0.8rem;"><i class="fas fa-star"></i><i
+                                    class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                    class="fas fa-star"></i></div>
+                        </div>
+                    </div>
+                    <p style="color:#666; font-style:italic;">"Oluwanjoba Homes made finding my apartment so easy. The
+                        virtual tours saved me so much time!"</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <img src="https://i.pravatar.cc/150?img=11" class="testimonial-avatar" alt="User">
+                        <div>
+                            <h4 style="margin:0;">James T.</h4>
+                            <div style="color:#ffc107; font-size:0.8rem;"><i class="fas fa-star"></i><i
+                                    class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                    class="fas fa-star"></i></div>
+                        </div>
+                    </div>
+                    <p style="color:#666; font-style:italic;">"As a landlord, this platform is a game changer. Tenant
+                        screening is seamless and secure."</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <img src="https://i.pravatar.cc/150?img=5" class="testimonial-avatar" alt="User">
+                        <div>
+                            <h4 style="margin:0;">Sophia L.</h4>
+                            <div style="color:#ffc107; font-size:0.8rem;"><i class="fas fa-star"></i><i
+                                    class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                    class="fas fa-star-half-alt"></i></div>
+                        </div>
+                    </div>
+                    <p style="color:#666; font-style:italic;">"Great experience overall. The support team was super
+                        helpful when I had questions."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Banner -->
+    <section class="cta-section">
+        <div class="container cta-content">
+            <h2>Start Your Real Estate Journey Today</h2>
+            <p>Whether you're looking to rent, buy, or list your property, we have the tools you need to succeed.</p>
+            <a href="signup.html" class="btn btn-white">Get Started Now</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container grid-4">
+            <div class="footer-brand">
+                <a href="#" class="logo text-white">Oluwanjoba <span>Homes</span></a>
+                <p>Leading the market in modern property rentals and management solutions.</p>
+                <div class="socials">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="careers.html">Careers</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="safety.html">Safety</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Newsletter</h4>
+                <div class="newsletter-form">
+                    <input type="email" placeholder="Email address">
+                    <button class="btn btn-primary">Subscribe</button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Oluwanjoba Homes. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/shared.js"></script>
+</body>
+
+</html>

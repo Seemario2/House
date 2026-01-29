@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications | Oluwanjoba Homes Tenant</title>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../../css/globals.css">
+    <link rel="stylesheet" href="../../../css/components/dashboard.css">
+    <style>
+        .dashboard-content {
+            padding: 2rem;
+        }
+
+        .page-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .notification-item {
+            display: flex;
+            gap: 1.25rem;
+            padding: 1.25rem;
+            border-bottom: 1px solid #f0f0f0;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+
+        .notification-item:hover {
+            background: #f9fafb;
+        }
+
+        .notification-item.unread {
+            background: #f0f7ff;
+        }
+
+        .notification-item.unread::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--primary);
+        }
+
+        .notif-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 1.1rem;
+        }
+
+        .icon-success {
+            background: #ecfdf5;
+            color: #10b981;
+        }
+
+        .icon-info {
+            background: #eff6ff;
+            color: #3b82f6;
+        }
+
+        .icon-warning {
+            background: #fffbeb;
+            color: #f59e0b;
+        }
+
+        .notif-content h4 {
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .notif-content p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .notif-time {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <a href="../../../index.html" class="logo">
+                <i class="fas fa-home-alt"></i> Oluwanjoba <span>Homes</span>
+            </a>
+            <nav class="sidebar-menu">
+                <a href="../index.html" class="menu-item">
+                    <i class="fas fa-th-large"></i> Dashboard
+                </a>
+                <a href="applied-properties.html" class="menu-item">
+                    <i class="fas fa-building"></i> Applied Properties
+                </a>
+                <a href="chat.html" class="menu-item">
+                    <i class="fas fa-comment-dots"></i> Chat
+                </a>
+                <a href="notifications.html" class="menu-item active">
+                    <i class="fas fa-bell"></i> Notifications
+                </a>
+                <a href="profile.html" class="menu-item">
+                    <i class="fas fa-user-circle"></i> Profile
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="../../../login.html" class="menu-item">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </div>
+        </aside>
+
+        <div class="sidebar-overlay"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Nav -->
+            <nav class="top-nav">
+                <button class="sidebar-toggle"><i class="fas fa-bars"></i></button>
+                <div class="nav-right">
+                    <button class="nav-icon-btn">
+                        <i class="fas fa-comment"></i>
+                        <span class="notification-badge">2</span>
+                    </button>
+                    <button class="nav-icon-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">5</span>
+                    </button>
+                    <div class="user-profile">
+                        <img src="https://ui-avatars.com/api/?name=John+Doe&background=4F46E5&color=fff" alt="User"
+                            class="user-img">
+                        <div class="user-info">
+                            <span class="name">John Doe</span>
+                            <span class="role">Tenant</span>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="dashboard-content">
+                <div class="section-header">
+                    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                        <div>
+                            <h2>Notifications</h2>
+                            <p>Stay updated with your applications and messages.</p>
+                        </div>
+                        <button class="btn btn-outline btn-sm">Mark all as read</button>
+                    </div>
+                </div>
+
+                <div class="page-card">
+                    <div class="notification-list">
+                        <div class="notification-item unread">
+                            <div class="notif-icon icon-success">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="notif-content">
+                                <h4>Application Approved!</h4>
+                                <p>Your application for <strong>Skyline Modern Villa</strong> has been approved by
+                                    Robert Wilson. Check your messages to schedule a visit.</p>
+                                <div class="notif-time">2 hours ago</div>
+                            </div>
+                        </div>
+
+                        <div class="notification-item unread">
+                            <div class="notif-icon icon-info">
+                                <i class="fas fa-comment-alt"></i>
+                            </div>
+                            <div class="notif-content">
+                                <h4>New Message</h4>
+                                <p>You have a new message from <strong>Sarah Jenkins</strong> regarding the Urban
+                                    Minimalist Studio.</p>
+                                <div class="notif-time">5 hours ago</div>
+                            </div>
+                        </div>
+
+                        <div class="notification-item">
+                            <div class="notif-icon icon-info">
+                                <i class="fas fa-info-circle"></i>
+                            </div>
+                            <div class="notif-content">
+                                <h4>Profile Viewed</h4>
+                                <p>A landlord recently viewed your rental profile.</p>
+                                <div class="notif-time">Yesterday</div>
+                            </div>
+                        </div>
+
+                        <div class="notification-item">
+                            <div class="notif-icon icon-warning">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div class="notif-content">
+                                <h4>Application Update</h4>
+                                <p>Your application for <strong>Seaside Luxury Apartment</strong> was not selected at
+                                    this time.</p>
+                                <div class="notif-time">2 days ago</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../../js/api.js"></script>
+    <script src="../../../js/shared.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+<div class="section-header">
+    <div>
+        <h2>Messages</h2>
+        <p>Chat with your tenants and applicants.</p>
+    </div>
+</div>
+
+<div class="chat-container">
+    <div class="chat-sidebar">
+        <div class="chat-list" id="chatList">
+            <div class="text-center" style="padding: 2rem; color: var(--text-muted);">
+                <i class="fas fa-spinner fa-spin"></i> Loading contacts...
+            </div>
+        </div>
+    </div>
+
+    <div class="chat-main" style="background: #f9fafb;">
+        <div class="chat-main-header">
+            <div class="flex-center" style="gap: 1rem">
+                <img src="https://ui-avatars.com/api/?name=Select+User&background=random&color=fff" alt=""
+                    class="user-avatar" style="width: 40px; height: 40px; opacity: 0.5;">
+                <div>
+                    <h4 style="font-size: 1rem;">Select a conversation</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-messages" style="flex:1;">
+            <!-- Messages will appear here -->
+        </div>
+
+        <div class="chat-input-area">
+            <input type="text" class="chat-input" placeholder="Type your message...">
+            <button class="btn btn-primary send-btn"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+</div>

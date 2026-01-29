@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landlord Dashboard | Oluwanjoba Homes</title>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../css/globals.css">
+    <link rel="stylesheet" href="../../css/components/dashboard.css">
+    <style>
+        .dashboard-content {
+            padding: 2rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .analytics-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .property-list {
+            background: white;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .property-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .property-item:last-child {
+            border-bottom: none;
+        }
+
+        .property-thumb {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--radius-sm);
+            object-fit: cover;
+        }
+
+        .property-actions {
+            margin-left: auto;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-icon {
+            width: 34px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-sm);
+            background: #f3f4f6;
+            color: var(--text-muted);
+        }
+
+        .btn-icon:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            width: 100%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: var(--radius);
+            outline: none;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <a href="../../index.html" class="logo" style="padding: 2rem;">
+                <i class="fas fa-home-alt"></i> Oluwanjoba <span>Homes</span>
+            </a>
+            <nav class="sidebar-menu">
+                <a href="#" class="menu-item active" data-page="analytics">
+                    <i class="fas fa-chart-line"></i> Analytics
+                </a>
+                <a href="#" class="menu-item" data-page="properties">
+                    <i class="fas fa-home"></i> My Properties
+                </a>
+                <a href="#" class="menu-item" data-page="add-property">
+                    <i class="fas fa-plus-circle"></i> Add Property
+                </a>
+                <a href="#" class="menu-item" data-page="applications">
+                    <i class="fas fa-file-invoice"></i> Applications
+                </a>
+                <a href="#" class="menu-item" data-page="chat">
+                    <i class="fas fa-comment-dots"></i> Chat
+                </a>
+                <a href="#" class="menu-item" data-page="profile">
+                    <i class="fas fa-user-circle"></i> Profile
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="../../index.html" class="menu-item" onclick="localStorage.clear()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </div>
+        </aside>
+
+        <div class="sidebar-overlay"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Nav -->
+            <nav class="top-nav">
+                <button class="sidebar-toggle"><i class="fas fa-bars"></i></button>
+                <div class="nav-right">
+                    <button class="nav-icon-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge" style="display: none;">0</span>
+                    </button>
+                    <div class="user-profile">
+                        <img src="https://ui-avatars.com/api/?background=4F46E5&color=fff&name=User" alt="User"
+                            class="user-img" id="userAvatar">
+                        <div class="user-info">
+                            <span class="name" id="userNameDisplay">Landlord</span>
+                            <span class="role">Landlord</span>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <div id="dashboard-content" class="dashboard-content">
+                <!-- Page content will be loaded here -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Dependencies -->
+    <script src="../../js/state.js"></script>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/events.js"></script>
+    <script src="../../js/socket.js"></script>
+    <script src="../../js/shared.js"></script>
+    <script src="../../js/components/chat.js"></script>
+    <script src="../../js/landlord.js"></script>
+</body>
+
+</html>

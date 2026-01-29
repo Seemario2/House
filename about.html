@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Oluwanjoba Homes</title>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/globals.css">
+    <link rel="stylesheet" href="css/index.css">
+    <style>
+        .page-header {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 160px 0 100px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .content-section {
+            padding: 6rem 0;
+        }
+
+        .story-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .story-img {
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .story-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .stats-row {
+            display: flex;
+            justify-content: space-around;
+            padding: 4rem 0;
+            background: var(--bg-dark);
+            color: white;
+            margin-top: 4rem;
+            border-radius: var(--radius-lg);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .story-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .stats-row {
+                flex-direction: column;
+                gap: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar glass">
+        <div class="container flex-between">
+            <a href="index.html" class="logo">
+                <i class="fas fa-home-alt"></i> Oluwanjoba <span>Homes</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="properties.html">Properties</a></li>
+                <li><a href="about.html" class="active" style="color: var(--primary);">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="login.html" class="btn btn-outline">Login</a></li>
+                <li><a href="signup.html" class="btn btn-primary">Join Now</a></li>
+            </ul>
+            <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Our Story</h1>
+            <p style="font-size: 1.2rem; max-width: 700px; margin: 0 auto; opacity: 0.9;">
+                Building trust and community through exceptional property management since 2026.
+            </p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="content-section container">
+        <div class="story-grid">
+            <div class="story-content">
+                <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem; color: var(--bg-dark);">Redefining Modern Living
+                </h2>
+                <p style="margin-bottom: 1.5rem; line-height: 1.8; color: var(--text-muted);">
+                    At Oluwanjoba Homes, we believe that finding a home shouldn't be a stressful ordeal. We started with
+                    a simple mission: to bridge the gap between caring landlords and quality tenants through technology
+                    and transparency.
+                </p>
+                <p style="line-height: 1.8; color: var(--text-muted);">
+                    Our platform simplifies everything from property search to lease signing and maintenance requests.
+                    We are committed to creating a seamless ecosystem where everyone thrives.
+                </p>
+            </div>
+            <div class="story-img">
+                <img src="https://images.unsplash.com/photo-1554469384-e58fac16e23a?auto=format&fit=crop&w=800"
+                    alt="Team meeting">
+            </div>
+        </div>
+
+        <div class="stats-row">
+            <div class="stat-item">
+                <div class="stat-number">500+</div>
+                <div class="stat-label">Properties Managed</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">1.2k+</div>
+                <div class="stat-label">Happy Tenants</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">98%</div>
+                <div class="stat-label">Satisfaction Rate</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container grid-4">
+            <div class="footer-brand">
+                <a href="#" class="logo text-white">Oluwanjoba <span>Homes</span></a>
+                <p>Leading the market in modern property rentals and management solutions.</p>
+                <div class="socials">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="careers.html">Careers</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="safety.html">Safety</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Newsletter</h4>
+                <div class="newsletter-form">
+                    <input type="email" placeholder="Email address">
+                    <button class="btn btn-primary">Subscribe</button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Oluwanjoba Homes. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/shared.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Properties | Oluwanjoba Homes</title>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/globals.css">
+    <link rel="stylesheet" href="css/index.css">
+    <style>
+        .page-header {
+            background-color: var(--bg-dark);
+            color: white;
+            padding: 120px 0 60px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .filter-section {
+            background: white;
+            padding: 2rem 0;
+            border-bottom: 1px solid #eee;
+            position: sticky;
+            top: 80px;
+            z-index: 90;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .filter-group select,
+        .filter-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: var(--radius);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar" style="background: white; box-shadow: var(--shadow-sm);">
+        <div class="container flex-between">
+            <a href="index.html" class="logo">
+                <i class="fas fa-home-alt"></i> Oluwanjoba <span>Homes</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html" style="color: var(--text-main);">Home</a></li>
+                <li><a href="properties.html" class="active" style="color: var(--primary);">Properties</a></li>
+                <li><a href="about.html" style="color: var(--text-main);">About Us</a></li>
+                <li><a href="contact.html" style="color: var(--text-main);">Contact</a></li>
+                <li><a href="login.html" class="btn btn-outline">Login</a></li>
+                <li><a href="signup.html" class="btn btn-primary">Join Now</a></li>
+            </ul>
+            <button class="mobile-menu-btn" style="color: var(--bg-dark);"><i class="fas fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Browse Properties</h1>
+            <p>Find the perfect place to call home from our extensive list of curated properties.</p>
+        </div>
+    </section>
+
+    <!-- Filters -->
+    <section class="filter-section">
+        <div class="container">
+            <div class="filter-grid">
+                <div class="filter-group">
+                    <input type="text" placeholder="Search by location..." id="filterLocation">
+                </div>
+                <div class="filter-group">
+                    <select id="filterType">
+                        <option value="">Property Type</option>
+                        <option value="apartment">Apartment</option>
+                        <option value="house">House</option>
+                        <option value="condo">Condo</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <select id="filterPrice">
+                        <option value="">Price Range</option>
+                        <option value="0-1000">Under $1,000</option>
+                        <option value="1000-2000">$1,000 - $2,000</option>
+                        <option value="2000+">$2,000+</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary" id="applyFiltersBtn">Apply Filters</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Property Grid -->
+    <section class="featured-section container">
+        <div class="property-grid" id="propertyGrid">
+            <!-- Properties will be loaded via JS -->
+            <div class="flex-center w-full" style="grid-column: 1/-1; padding: 3rem;">
+                <i class="fas fa-spinner fa-spin fa-2x" style="color: var(--primary);"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container grid-4">
+            <div class="footer-brand">
+                <a href="#" class="logo text-white">Oluwanjoba <span>Homes</span></a>
+                <p>Leading the market in modern property rentals and management solutions.</p>
+                <div class="socials">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="careers.html">Careers</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="safety.html">Safety</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Newsletter</h4>
+                <div class="newsletter-form">
+                    <input type="email" placeholder="Email address">
+                    <button class="btn btn-primary">Subscribe</button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Oluwanjoba Homes. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/api.js"></script>
+    <script src="js/shared.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const grid = document.getElementById('propertyGrid');
+            const filterLoc = document.getElementById('filterLocation');
+            const filterType = document.getElementById('filterType');
+            const filterPrice = document.getElementById('filterPrice');
+            const applyBtn = document.getElementById('applyFiltersBtn');
+
+            let allProperties = [];
+
+            // 1. Get URL Params and Pre-fill
+            const params = new URLSearchParams(window.location.search);
+            if (params.has('location')) filterLoc.value = params.get('location');
+            if (params.has('type')) filterType.value = params.get('type');
+            if (params.has('price')) filterPrice.value = params.get('price');
+
+            // 2. Fetch Properties & Favorites
+            try {
+                const [props, favs] = await Promise.all([
+                    window.api.getProperties(),
+                    window.api.getFavorites().catch(() => []) // Return empty if not logged in
+                ]);
+
+                allProperties = props;
+                // Create a Set of favorited IDs for O(1) lookup
+                const favSet = new Set(favs.map(f => f.id));
+
+                filterAndRender(favSet);
+            } catch (err) {
+                console.error(err);
+                grid.innerHTML = `<p class="text-center w-full text-danger">Failed to load properties: ${err.message}</p>`;
+            }
+
+            // 3. Filter Logic
+            function filterAndRender(favSet = new Set()) {
+                const locVal = filterLoc.value.toLowerCase();
+                const typeVal = filterType.value.toLowerCase();
+                const priceVal = filterPrice.value;
+
+                const filtered = allProperties.filter(prop => {
+                    // Location Filter (partial match)
+                    const matchLoc = !locVal || prop.location.toLowerCase().includes(locVal);
+
+                    // Type Filter (exact match)
+                    const matchType = !typeVal || prop.type.toLowerCase() === typeVal;
+
+                    // Price Filter
+                    let matchPrice = true;
+                    if (priceVal) {
+                        const price = parseFloat(prop.price);
+                        if (priceVal === '0-1000') matchPrice = price < 1000;
+                        else if (priceVal === '1000-2000') matchPrice = price >= 1000 && price <= 2000;
+                        else if (priceVal === '2000+') matchPrice = price > 2000;
+                    }
+
+                    return matchLoc && matchType && matchPrice;
+                });
+
+                renderProperties(filtered, favSet);
+            }
+
+            // 4. Render Logic
+            function renderProperties(properties, favSet) {
+                grid.innerHTML = '';
+                if (properties.length === 0) {
+                    grid.innerHTML = '<div class="text-center w-full" style="grid-column: 1/-1; padding: 3rem; color: var(--text-muted);">No properties found matching your criteria.</div>';
+                    return;
+                }
+
+                properties.forEach(prop => {
+                    const isFav = favSet.has(prop.id);
+                    const card = document.createElement('div');
+                    card.className = 'property-card';
+                    card.innerHTML = `
+                        <div class="property-img">
+                            <img src="${prop.image_url}" alt="${prop.title}">
+                            <span class="price-tag">$${prop.price}/mo</span>
+                            <button class="favorite-btn ${isFav ? 'active' : ''}" data-id="${prop.id}" onclick="toggleFavorite(event, ${prop.id}, this)">
+                                <i class="${isFav ? 'fas' : 'far'} fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="property-info">
+                            <h3>${prop.title}</h3>
+                            <p class="location"><i class="fas fa-map-marker-alt"></i> ${prop.location}</p>
+                            <div class="features">
+                                <span><i class="fas fa-bed"></i> ${prop.bedrooms} Beds</span>
+                                <span><i class="fas fa-bath"></i> ${prop.bathrooms} Baths</span>
+                                <span><i class="fas fa-expand-arrows-alt"></i> ${prop.sqft} sqft</span>
+                            </div>
+                            <a href="property-detail.html?id=${prop.id}" class="btn btn-primary w-full">View Details</a>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+            }
+
+            // Expose toggle function
+            window.toggleFavorite = async (e, id, btn) => {
+                e.stopPropagation(); // prevent card click
+                e.preventDefault();
+
+                const icon = btn.querySelector('i');
+                const isFav = btn.classList.contains('active');
+
+                // Optimistic UI update
+                btn.classList.toggle('active');
+                icon.className = isFav ? 'far fa-heart' : 'fas fa-heart'; // Toggle solid/empty
+
+                try {
+                    if (isFav) {
+                        await window.api.removeFavorite(id);
+                    } else {
+                        await window.api.addFavorite(id);
+                    }
+                } catch (err) {
+                    console.error('Favorite action failed:', err);
+                    // Revert UI
+                    btn.classList.toggle('active');
+                    icon.className = isFav ? 'fas fa-heart' : 'far fa-heart';
+                    alert('Please login to save properties.');
+                }
+            };
+
+            // 5. Event Listeners
+            // Note: We need to pass the current favSet to filterAndRender re-calls. 
+            // For simplicity, we just won't re-fetch favs on filter, assume they don't change by other tabs.
+            // We'll capture the initial favSet in a wider scope if needed, or just let the initial load handle it 
+            // and subsequent filters might lose it? NO, current implementation passes empty set if called by event listener.
+            // Let's allow re-rendering with cached favs.
+
+            // To fix scope, we'll store favSet globally within closure
+            let currentFavSet = new Set();
+
+            // Re-wrap init to capture set
+            (async () => {
+                try {
+                    const [props, favs] = await Promise.all([
+                        window.api.getProperties(),
+                        window.api.getFavorites().catch(() => [])
+                    ]);
+                    allProperties = props;
+                    currentFavSet = new Set(favs.map(f => f.id));
+                    filterAndRender();
+                } catch (e) {
+                    console.error(e);
+                }
+            })();
+
+            function filterAndRender() {
+                // Use currentFavSet
+                // ... (Same filter logic as above)
+                const locVal = filterLoc.value.toLowerCase();
+                const typeVal = filterType.value.toLowerCase();
+                const priceVal = filterPrice.value;
+
+                const filtered = allProperties.filter(prop => {
+                    const matchLoc = !locVal || prop.location.toLowerCase().includes(locVal);
+                    const matchType = !typeVal || prop.type.toLowerCase() === typeVal;
+                    let matchPrice = true;
+                    if (priceVal) {
+                        const price = parseFloat(prop.price);
+                        if (priceVal === '0-1000') matchPrice = price < 1000;
+                        else if (priceVal === '1000-2000') matchPrice = price >= 1000 && price <= 2000;
+                        else if (priceVal === '2000+') matchPrice = price > 2000;
+                    }
+                    return matchLoc && matchType && matchPrice;
+                });
+                renderProperties(filtered, currentFavSet);
+            }
+
+            applyBtn.addEventListener('click', () => filterAndRender());
+            filterLoc.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') filterAndRender();
+            });
+        });
+    </script>
+</body>
+
+</html>

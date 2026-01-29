@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saved Properties | Tenant Dashboard</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="../../../css/globals.css">
+    <link rel="stylesheet" href="../../../css/components/dashboard.css">
+    <link rel="stylesheet" href="../../../css/index.css"> <!-- Reusing property card styles -->
+    <style>
+        .property-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .favorite-btn {
+            /* Copied from index.css for standalone usage if needed, but index.css already included */
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s;
+            color: var(--danger);
+            /* Always red on this page mostly */
+            font-size: 1.1rem;
+        }
+
+        .favorite-btn:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../../../index.html" class="logo text-white">
+                    <i class="fas fa-home-alt"></i> Oluwanjoba
+                </a>
+                <button class="sidebar-toggle"><i class="fas fa-times"></i></button>
+            </div>
+
+            <div class="user-profile-preview">
+                <img src="https://ui-avatars.com/api/?name=Tenant+User&background=random" alt="Profile"
+                    class="avatar-sm">
+                <div class="user-info">
+                    <h4 id="userName">Tenant User</h4>
+                    <span class="badge badge-primary">Tenant</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="overview.html" class="nav-item">
+                    <i class="fas fa-chart-pie"></i> Overview
+                </a>
+                <a href="notifications.html" class="nav-item">
+                    <i class="fas fa-bell"></i> Notifications
+                    <span class="nav-badge" style="display: none;">0</span>
+                </a>
+                <a href="chat.html" class="nav-item">
+                    <i class="fas fa-comments"></i> Messages
+                </a>
+                <a href="applied-properties.html" class="nav-item">
+                    <i class="fas fa-file-signature"></i> Applications
+                </a>
+                <a href="favorites.html" class="nav-item active">
+                    <i class="fas fa-heart"></i> Saved Properties
+                </a>
+                <a href="profile.html" class="nav-item">
+                    <i class="fas fa-user-cog"></i> Profile
+                </a>
+                <a href="../../../index.html" class="nav-item logout-link"
+                    onclick="localStorage.removeItem('user'); localStorage.removeItem('token');">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Overlay -->
+        <div class="sidebar-overlay"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="dashboard-header">
+                <button class="sidebar-toggle"><i class="fas fa-bars"></i></button>
+                <h3>Saved Properties</h3>
+            </header>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <div class="property-grid" id="favoritesGrid">
+                    <div style="grid-column: 1/-1; text-align: center; padding: 3rem;">
+                        <i class="fas fa-spinner fa-spin fa-2x" style="color: var(--primary);"></i>
+                        <p class="mt-2">Loading favorites...</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../../js/api.js"></script>
+    <script src="../../../js/shared.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const grid = document.getElementById('favoritesGrid');
+            const userStr = localStorage.getItem('user');
+            if (userStr) {
+                document.getElementById('userName').textContent = JSON.parse(userStr).full_name;
+            }
+
+            // Expose toggle globally
+            window.toggleFavorite = async (e, id, btn) => {
+                e.stopPropagation();
+                e.preventDefault();
+
+                if (!confirm("Remove this property from your favorites?")) return;
+
+                // Optimistic remove
+                const card = btn.closest('.property-card');
+                card.style.opacity = '0.5';
+
+                try {
+                    await window.api.removeFavorite(id);
+                    card.remove();
+
+                    if (grid.children.length === 0) {
+                        grid.innerHTML = `
+                            <div style="grid-column: 1/-1; text-align: center; padding: 4rem; color: var(--text-muted);">
+                                <i class="far fa-heart fa-3x" style="margin-bottom: 1rem;"></i>
+                                <p>You haven't saved any properties yet.</p>
+                                <a href="../../../properties.html" class="btn btn-primary mt-2">Browse Properties</a>
+                            </div>
+                        `;
+                    }
+                } catch (err) {
+                    console.error(err);
+                    card.style.opacity = '1';
+                    alert("Failed to remove favorite.");
+                }
+            };
+
+            try {
+                const favorites = await window.api.getFavorites();
+
+                if (favorites.length === 0) {
+                    grid.innerHTML = `
+                        <div style="grid-column: 1/-1; text-align: center; padding: 4rem; color: var(--text-muted);">
+                            <i class="far fa-heart fa-3x" style="margin-bottom: 1rem;"></i>
+                            <p>You haven't saved any properties yet.</p>
+                            <a href="../../../properties.html" class="btn btn-primary mt-2">Browse Properties</a>
+                        </div>
+                    `;
+                    return;
+                }
+
+                grid.innerHTML = favorites.map(prop => `
+                    <div class="property-card">
+                        <div class="property-img">
+                            <img src="${prop.image_url}" alt="${prop.title}">
+                            <span class="price-tag">$${prop.price}/mo</span>
+                            <button class="favorite-btn active" onclick="window.toggleFavorite(event, ${prop.id}, this)">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="property-info">
+                            <h3>${prop.title}</h3>
+                            <p class="location"><i class="fas fa-map-marker-alt"></i> ${prop.location}</p>
+                            <div class="features">
+                                <span><i class="fas fa-bed"></i> ${prop.bedrooms} Beds</span>
+                                <span><i class="fas fa-bath"></i> ${prop.bathrooms} Baths</span>
+                                <span><i class="fas fa-expand-arrows-alt"></i> ${prop.sqft} sqft</span>
+                            </div>
+                            <a href="../../../property-detail.html?id=${prop.id}" class="btn btn-primary w-full">View Details</a>
+                        </div>
+                    </div>
+                `).join('');
+
+            } catch (err) {
+                console.error(err);
+                grid.innerHTML = `<p class="text-danger text-center">Failed to load favorites.</p>`;
+            }
+        });
+    </script>
+</body>
+
+</html>

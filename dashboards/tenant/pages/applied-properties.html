@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Applied Properties | Oluwanjoba Homes Tenant</title>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../../css/globals.css">
+    <link rel="stylesheet" href="../../../css/components/dashboard.css">
+    <style>
+        .dashboard-content {
+            padding: 2rem;
+        }
+
+        .page-card {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .applications-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .app-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border: 1px solid #eee;
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+
+        .app-item:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .app-info {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .app-img {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--radius-sm);
+            object-fit: cover;
+        }
+
+        .app-details h4 {
+            margin-bottom: 0.25rem;
+        }
+
+        .app-details p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .app-status {
+            text-align: right;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <a href="../../../index.html" class="logo">
+                <i class="fas fa-home-alt"></i> Oluwanjoba <span>Homes</span>
+            </a>
+            <nav class="sidebar-menu">
+                <a href="../index.html" class="menu-item">
+                    <i class="fas fa-th-large"></i> Dashboard
+                </a>
+                <a href="applied-properties.html" class="menu-item active">
+                    <i class="fas fa-building"></i> Applied Properties
+                </a>
+                <a href="chat.html" class="menu-item">
+                    <i class="fas fa-comment-dots"></i> Chat
+                </a>
+                <a href="notifications.html" class="menu-item">
+                    <i class="fas fa-bell"></i> Notifications
+                </a>
+                <a href="profile.html" class="menu-item">
+                    <i class="fas fa-user-circle"></i> Profile
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="../../../login.html" class="menu-item">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </div>
+        </aside>
+
+        <div class="sidebar-overlay"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Nav -->
+            <nav class="top-nav">
+                <button class="sidebar-toggle"><i class="fas fa-bars"></i></button>
+                <div class="nav-right">
+                    <button class="nav-icon-btn">
+                        <i class="fas fa-comment"></i>
+                        <span class="notification-badge">2</span>
+                    </button>
+                    <button class="nav-icon-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">5</span>
+                    </button>
+                    <div class="user-profile">
+                        <img src="https://ui-avatars.com/api/?name=John+Doe&background=4F46E5&color=fff" alt="User"
+                            class="user-img">
+                        <div class="user-info">
+                            <span class="name">John Doe</span>
+                            <span class="role">Tenant</span>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="dashboard-content">
+                <div class="section-header">
+                    <h2>Applied Properties</h2>
+                    <p>Track the status of your property applications.</p>
+                </div>
+
+                <div class="page-card">
+                    <div class="applications-list">
+                        <div class="app-item">
+                            <div class="app-info">
+                                <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=200"
+                                    alt="Property" class="app-img">
+                                <div class="app-details">
+                                    <h4>Skyline Modern Villa</h4>
+                                    <p><i class="fas fa-map-marker-alt"></i> Beverly Hills, CA</p>
+                                    <p>Applied on: Jan 24, 2026</p>
+                                </div>
+                            </div>
+                            <div class="app-status">
+                                <span class="badge badge-approved"
+                                    style="margin-bottom: 0.5rem; display: inline-block;">Approved</span>
+                                <div>
+                                    <button class="btn btn-outline btn-sm">Chat with Landlord</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="app-item">
+                            <div class="app-info">
+                                <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=200"
+                                    alt="Property" class="app-img">
+                                <div class="app-details">
+                                    <h4>Urban Minimalist Studio</h4>
+                                    <p><i class="fas fa-map-marker-alt"></i> Manhattan, NY</p>
+                                    <p>Applied on: Jan 25, 2026</p>
+                                </div>
+                            </div>
+                            <div class="app-status">
+                                <span class="badge badge-pending"
+                                    style="margin-bottom: 0.5rem; display: inline-block;">Pending</span>
+                                <div>
+                                    <button class="btn btn-outline btn-sm">View Details</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="app-item">
+                            <div class="app-info">
+                                <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=200"
+                                    alt="Property" class="app-img">
+                                <div class="app-details">
+                                    <h4>Seaside Luxury Apartment</h4>
+                                    <p><i class="fas fa-map-marker-alt"></i> Malibu, CA</p>
+                                    <p>Applied on: Jan 20, 2026</p>
+                                </div>
+                            </div>
+                            <div class="app-status">
+                                <span class="badge badge-danger"
+                                    style="margin-bottom: 0.5rem; display: inline-block;">Declined</span>
+                                <div>
+                                    <button class="btn btn-outline btn-sm">See Why</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../../js/api.js"></script>
+    <script src="../../../js/socket.js"></script>
+    <script src="../../../js/shared.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const userStr = localStorage.getItem('user');
+            if (!userStr) {
+                window.location.href = '../../../login.html';
+                return;
+            }
+            const user = JSON.parse(userStr);
+
+            // Initialize Socket for real-time updates
+            if (window.DashboardSocket) {
+                window.DashboardSocket.connect(user.id);
+            }
+
+            const container = document.querySelector('.applications-list');
+
+            // Function to render single app item
+            const renderAppItem = (app) => `
+                <div class="app-item" id="app-${app.id}">
+                    <div class="app-info">
+                        <img src="${app.property.image_url}" alt="Property" class="app-img">
+                        <div class="app-details">
+                            <h4>${app.property.title}</h4>
+                            <p><i class="fas fa-map-marker-alt"></i> ${app.property.location}</p>
+                            <p>Applied on: ${new Date(app.applied_at).toLocaleDateString()}</p>
+                        </div>
+                    </div>
+                    <div class="app-status">
+                        <span class="badge badge-${app.status}" style="margin-bottom: 0.5rem; display: inline-block;">${app.status.charAt(0).toUpperCase() + app.status.slice(1)}</span>
+                        <div>
+                            ${app.status === 'approved' ?
+                    `<a href="chat.html" class="btn btn-outline btn-sm">Chat with Landlord</a>` :
+                    `<button class="btn btn-outline btn-sm">View Details</button>`
+                }
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            try {
+                const apps = await window.api.getTenantApplications(user.id);
+
+                if (apps.length === 0) {
+                    container.innerHTML = `<div style="padding: 3rem; text-align: center; color: var(--text-muted);">
+                        <i class="fas fa-file-invoice fa-3x" style="margin-bottom: 1rem; opacity: 0.3;"></i>
+                        <p>No applications yet. Start exploring properties!</p>
+                        <a href="../../../index.html" class="btn btn-primary" style="margin-top: 1rem; display: inline-block;">Browse Properties</a>
+                    </div>`;
+                } else {
+                    container.innerHTML = apps.map(renderAppItem).join('');
+                }
+
+            } catch (err) {
+                console.error(err);
+                container.innerHTML = `<p style="color: var(--danger); text-align: center;">Failed to load applications.</p>`;
+            }
+
+            // Real-time listener
+            document.addEventListener('applicationUpdated', (e) => {
+                const data = e.detail;
+                const appElement = document.getElementById(`app-${data.app_id}`);
+
+                if (appElement) {
+                    // Update the status badge
+                    const badge = appElement.querySelector('.badge');
+                    if (badge) {
+                        badge.className = `badge badge-${data.status}`;
+                        badge.textContent = data.status.charAt(0).toUpperCase() + data.status.slice(1);
+                    }
+
+                    // Update actions based on status
+                    const actionsDiv = appElement.querySelector('.app-status div');
+                    if (actionsDiv) {
+                        if (data.status === 'approved') {
+                            actionsDiv.innerHTML = `<a href="chat.html" class="btn btn-outline btn-sm">Chat with Landlord</a>`;
+                        } else {
+                            actionsDiv.innerHTML = `<button class="btn btn-outline btn-sm">View Details</button>`;
+                        }
+                    }
+
+                    // Optional: Show a highlight effect
+                    appElement.style.borderColor = 'var(--primary)';
+                    setTimeout(() => appElement.style.borderColor = '#eee', 2000);
+                } else {
+                    // If app element doesn't exist (maybe newly created?), reload the list
+                    // For now, simpler to just log or ignore
+                    console.log('App updated but element not found in list', data);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

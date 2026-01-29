@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tenant Dashboard | Oluwanjoba Homes</title>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../css/globals.css">
+    <link rel="stylesheet" href="../../css/components/dashboard.css">
+    <link rel="stylesheet" href="../../css/components/chat.css">
+    <style>
+        .dashboard-content {
+            padding: 2rem;
+            position: relative;
+        }
+
+        /* Status Indicator */
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        .status-indicator.online {
+            background: var(--success);
+        }
+
+        /* Toast Notification */
+        .notification-toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 1rem 2rem;
+            border-radius: var(--radius);
+            background: var(--bg-dark);
+            color: white;
+            z-index: 2000;
+            transform: translateX(200%);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .notification-toast.active {
+            transform: translateX(0);
+        }
+
+        .chat-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 350px;
+            height: 450px;
+            display: none;
+            z-index: 1000;
+            flex-direction: column;
+        }
+
+        .chat-widget.active {
+            display: flex;
+        }
+
+        .gap-sm {
+            gap: 0.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .stat-card h4 {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card .value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--bg-dark);
+        }
+
+        .applications-table {
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .table-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            padding: 1rem 1.5rem;
+            background: #f9fafb;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        td {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #eee;
+            font-size: 0.9rem;
+        }
+
+        .property-cell {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .property-cell img {
+            width: 45px;
+            height: 45px;
+            border-radius: var(--radius-sm);
+            object-fit: cover;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <a href="../../index.html" class="logo">
+                <i class="fas fa-home-alt"></i> Oluwanjoba <span>Homes</span>
+            </a>
+            <nav class="sidebar-menu">
+                <a href="#" class="menu-item active">
+                    <i class="fas fa-th-large"></i> Dashboard
+                </a>
+                <a href="pages/applied-properties.html" class="menu-item">
+                    <i class="fas fa-building"></i> Applied Properties
+                </a>
+                <a href="pages/chat.html" class="menu-item">
+                    <i class="fas fa-comment-dots"></i> Chat
+                </a>
+                <a href="pages/notifications.html" class="menu-item">
+                    <i class="fas fa-bell"></i> Notifications
+                </a>
+                <a href="pages/profile.html" class="menu-item">
+                    <i class="fas fa-user-circle"></i> Profile
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="../../login.html" class="menu-item">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </div>
+        </aside>
+
+        <div class="sidebar-overlay"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Nav -->
+            <nav class="top-nav">
+                <button class="sidebar-toggle"><i class="fas fa-bars"></i></button>
+                <div class="nav-right">
+                    <button class="nav-icon-btn">
+                        <i class="fas fa-comment"></i>
+                        <span class="notification-badge">0</span>
+                    </button>
+                    <button class="nav-icon-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">0</span>
+                    </button>
+                    <div class="user-profile">
+                        <img src="https://ui-avatars.com/api/?name=User&background=4F46E5&color=fff" alt="User"
+                            class="user-img" id="userAvatar">
+                        <div class="user-info">
+                            <span class="name" id="userNameDisplay">Loading...</span>
+                            <span class="role">Tenant</span>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="dashboard-content">
+                <div class="section-header">
+                    <h2 id="welcomeMessage">Welcome back!</h2>
+                    <p>Here's what's happening with your applications.</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h4>Total Applied</h4>
+                        <div class="value" id="totalApplied">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Approved</h4>
+                        <div class="value" style="color: var(--success)" id="totalApproved">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Pending</h4>
+                        <div class="value" style="color: var(--warning)" id="totalPending">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Declined</h4>
+                        <div class="value" style="color: var(--danger)" id="totalDeclined">0</div>
+                    </div>
+                </div>
+
+                <div class="applications-table">
+                    <div class="table-header">
+                        <h3>Applied Properties</h3>
+                        <a href="../../properties.html" class="btn btn-outline btn-sm"
+                            style="padding: 0.5rem 1rem;">Find
+                            More</a>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Property</th>
+                                <th>Landlord</th>
+                                <th>Applied Date</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="applicationsTableBody">
+                            <tr>
+                                <td colspan="5" style="text-align: center;">Loading applications...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Chat Widget -->
+            <div class="chat-widget active">
+                <div class="chat-main glass shadow-lg">
+                    <div class="chat-header">
+                        <div class="flex-center gap-sm">
+                            <span class="status-indicator online"></span>
+                            <strong>Support Chat</strong>
+                        </div>
+                        <button class="close-chat"><i class="fas fa-times"></i></button>
+                    </div>
+                    <div class="chat-messages">
+                        <div class="message message-received">
+                            <div class="message-bubble">Hello! How can we help you today?</div>
+                        </div>
+                    </div>
+                    <div class="chat-input-area">
+                        <input type="text" class="chat-input" placeholder="Type a message...">
+                        <button class="btn btn-primary send-btn"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../js/api.js"></script>
+    <script src="../../js/shared.js"></script>
+    <script src="../../js/components/chat.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const userStr = localStorage.getItem('user');
+            if (!userStr) {
+                window.location.href = '../../login.html';
+                return;
+            }
+
+            const user = JSON.parse(userStr);
+            if (user.role !== 'tenant') {
+                alert('Access denied. Tenant area only.');
+                window.location.href = '../../index.html';
+                return;
+            }
+
+            // Update Profile UI
+            document.getElementById('userNameDisplay').textContent = user.full_name || 'Tenant';
+            document.getElementById('welcomeMessage').textContent = `Welcome back, ${user.full_name?.split(' ')[0] || 'User'}!`;
+            document.getElementById('userAvatar').src = `https://ui-avatars.com/api/?name=${encodeURIComponent(user.full_name)}&background=4F46E5&color=fff`;
+
+            try {
+                // Fetch Applications
+                const applications = await window.api.getTenantApplications(user.id);
+
+                // Calculate Stats
+                const stats = {
+                    total: applications.length,
+                    approved: applications.filter(a => a.status === 'approved').length,
+                    pending: applications.filter(a => a.status === 'pending').length,
+                    declined: applications.filter(a => a.status === 'declined').length
+                };
+
+                // Update Stats UI
+                document.getElementById('totalApplied').textContent = stats.total;
+                document.getElementById('totalApproved').textContent = stats.approved;
+                document.getElementById('totalPending').textContent = stats.pending;
+                document.getElementById('totalDeclined').textContent = stats.declined;
+
+                // Render Table
+                const tbody = document.getElementById('applicationsTableBody');
+                if (applications.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 2rem;">No applications yet. Start exploring!</td></tr>';
+                } else {
+                    tbody.innerHTML = applications.map(app => `
+                        <tr>
+                            <td>
+                                <div class="property-cell">
+                                    <img src="${app.property.image_url || 'https://via.placeholder.com/100'}" alt="${app.property.title}">
+                                    <div>
+                                        <strong>${app.property.title}</strong>
+                                        <div style="font-size: 0.75rem; color: var(--text-muted)">${app.property.location}</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>Landlord (ID: ${app.property.owner_id || 'N/A'})</td>
+                            <td>${new Date(app.applied_at).toLocaleDateString()}</td>
+                            <td><span class="badge badge-${app.status.toLowerCase()}">${app.status}</span></td>
+                            <td>
+                                <a href="../../property-detail.html?id=${app.property.id}" class="btn-outline btn-sm" style="padding: 0.25rem 0.5rem; font-size: 0.8rem; text-decoration: none;">View</a>
+                                <a href="pages/chat.html?chat_with=${app.property.owner_id}" class="btn btn-primary btn-sm" style="padding: 0.25rem 0.5rem; font-size: 0.8rem; text-decoration: none; margin-left: 0.5rem;"><i class="fas fa-comment"></i> Chat</a>
+                            </td>
+                        </tr>
+                    `).join('');
+                }
+
+            } catch (err) {
+                console.error('Failed to load dashboard data:', err);
+                document.getElementById('applicationsTableBody').innerHTML = '<tr><td colspan="5" style="text-align: center; color: red;">Failed to load data. Please try again.</td></tr>';
+            }
+        });
+    </script>
+</body>
+
+</html>

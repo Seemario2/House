@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Details | Oluwanjoba Homes</title>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/globals.css">
+    <link rel="stylesheet" href="css/index.css">
+    <style>
+        .detail-container {
+            padding-top: 100px;
+            padding-bottom: 60px;
+        }
+
+        .property-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+        }
+
+        /* Gallery Styles */
+        .gallery-container {
+            margin-bottom: 2rem;
+        }
+
+        .property-main-img {
+            width: 100%;
+            height: 500px;
+            border-radius: var(--radius-lg);
+            object-fit: cover;
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+
+        .gallery-thumb {
+            height: 100px;
+            width: 100%;
+            object-fit: cover;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            opacity: 0.7;
+            transition: all 0.2s;
+        }
+
+        .gallery-thumb:hover,
+        .gallery-thumb.active {
+            opacity: 1;
+            border: 2px solid var(--primary);
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+        }
+
+        .detail-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            margin-bottom: 2rem;
+        }
+
+        .feature-box {
+            display: flex;
+            gap: 2rem;
+            margin: 1.5rem 0;
+            padding: 1rem 0;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .feature-item i {
+            color: var(--primary);
+        }
+
+        /* Amenities Grid */
+        .amenities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .amenity-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: var(--text-main);
+        }
+
+        .amenity-item i {
+            color: var(--primary);
+            width: 20px;
+            text-align: center;
+        }
+
+        .apply-card {
+            position: sticky;
+            top: 100px;
+        }
+
+        .price-large {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .description {
+            line-height: 1.8;
+            color: var(--text-main);
+            margin-top: 1.5rem;
+        }
+
+        /* Calculator Styles */
+        .calc-input-group {
+            margin-bottom: 1rem;
+        }
+
+        .calc-input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .calc-input-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: var(--radius-sm);
+        }
+
+        .calc-result {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .calc-result h4 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 0px;
+        }
+
+        /* Map Placeholder */
+        .map-placeholder {
+            height: 300px;
+            background-color: #e9ecef;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .map-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.6;
+        }
+
+        /* Similar Properties */
+        .similar-section {
+            margin-top: 4rem;
+        }
+
+        .similar-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        /* Landlord Card */
+        .landlord-card {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 1.5rem;
+        }
+
+        .landlord-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        /* Reviews */
+        .review-item {
+            border-bottom: 1px solid #eee;
+            padding: 1.5rem 0;
+        }
+
+        .review-item:last-child {
+            border-bottom: none;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .stars {
+            color: #ffc107;
+        }
+
+        /* Neighborhood Stats */
+        .neighborhood-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .stat-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 4px solid var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 0.5rem;
+            color: var(--primary);
+        }
+
+        /* Tour Form */
+        .tour-form input,
+        .tour-form select {
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 992px) {
+            .similar-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .detail-container {
+                padding-top: 80px;
+                padding-bottom: 40px;
+            }
+
+            .property-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .property-main-img {
+                height: 250px;
+            }
+
+            .feature-box {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(4, 1fr);
+                /* Keep 4 but smaller */
+            }
+
+            .similar-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .neighborhood-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar glass">
+        <div class="container flex-between">
+            <a href="index.html" class="logo">
+                <i class="fas fa-home-alt"></i> Oluwanjoba <span>Homes</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html#featured">Featured</a></li>
+                <li><a href="login.html" class="btn btn-outline">Login</a></li>
+                <li><a href="signup.html" class="btn btn-primary">Join Now</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container detail-container">
+        <div id="loading" class="flex-center" style="height: 300px;">
+            <i class="fas fa-spinner fa-spin fa-3x" style="color: var(--primary);"></i>
+        </div>
+
+        <div id="propertyContent" style="display: none;">
+            <div class="property-header">
+                <div>
+                    <h1 id="propTitle" style="font-size: 2.5rem;"></h1>
+                    <p id="propLocation" class="location" style="font-size: 1.1rem; margin-top: 0.5rem;"></p>
+                </div>
+                <div class="price-large" id="propPrice"></div>
+            </div>
+
+            <div class="gallery-container">
+                <img id="propImg" src="" alt="Property" class="property-main-img">
+                <div class="gallery-grid" id="galleryGrid"></div>
+            </div>
+
+            <div class="detail-grid">
+                <div class="main-details">
+                    <div class="detail-card">
+                        <h3>About this property</h3>
+                        <div class="landlord-card" id="landlordSection" style="margin-top: 1.5rem;">
+                            <img src="https://i.pravatar.cc/150?img=11" alt="Landlord" class="landlord-avatar">
+                            <div>
+                                <h4 style="margin:0;">Hosted by <span id="landlordName">Oluwanjoba Agent</span> <i
+                                        class="fas fa-check-circle" style="color:var(--primary);"></i></h4>
+                                <p style="font-size:0.9rem; color:var(--text-muted); margin:0;">Superhost • 4.9 Rating
+                                </p>
+                            </div>
+                            <button class="btn btn-outline" style="margin-left:auto; padding: 0.5rem 1rem;">Contact
+                                Host</button>
+                        </div>
+
+                        <div class="feature-box">
+                            <div class="feature-item">
+                                <i class="fas fa-bed"></i>
+                                <span id="propBeds"></span> Beds
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-bath"></i>
+                                <span id="propBaths"></span> Baths
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-expand-arrows-alt"></i>
+                                <span id="propSqft"></span> sqft
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-tag"></i>
+                                <span id="propType"></span>
+                            </div>
+                        </div>
+                        <p id="propDescription" class="description"></p>
+                    </div>
+
+                    <div class="detail-card">
+                        <h3>Features & Amenities</h3>
+                        <div class="amenities-grid" id="amenitiesGrid">
+                            <!-- Injected JS -->
+                        </div>
+                    </div>
+
+                    <div class="detail-card">
+                        <h3>Neighborhood Insights</h3>
+                        <div class="neighborhood-stats">
+                            <div>
+                                <div class="stat-circle">94</div>
+                                <p><strong>Walk Score</strong><br><span style="font-size:0.8rem; color:#666;">Walker's
+                                        Paradise</span></p>
+                            </div>
+                            <div>
+                                <div class="stat-circle">88</div>
+                                <p><strong>Transit Score</strong><br><span
+                                        style="font-size:0.8rem; color:#666;">Excellent Transit</span></p>
+                            </div>
+                            <div>
+                                <div class="stat-circle">A+</div>
+                                <p><strong>Safety Score</strong><br><span style="font-size:0.8rem; color:#666;">Verified
+                                        Area</span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="detail-card">
+                        <h3>Location</h3>
+                        <div class="map-placeholder">
+                            <img src="https://static.mapbiler.com/img/staticmap_500x300.png?lat=6.5244&lon=3.3792&z=13"
+                                alt="Map Placeholder"
+                                onerror="this.src='https://via.placeholder.com/500x300?text=Map+View'">
+                            <div
+                                style="position: absolute; background: white; padding: 0.5rem 1rem; border-radius: 50px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); font-weight: 600;">
+                                <i class="fas fa-map-marker-alt" style="color: var(--primary);"></i> Exact location
+                                provided after booking
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="detail-card">
+                        <h3>Reviews</h3>
+                        <div id="reviewsList">
+                            <!-- Injected JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sidebar-details">
+                    <div class="detail-card apply-card">
+                        <h3>Ready to move in?</h3>
+                        <p style="color: var(--text-muted); margin: 1rem 0 1.5rem;">Secure this property today.</p>
+                        <button id="applyBtn" class="btn btn-primary w-full"
+                            style="height: 56px; font-size: 1.1rem; margin-bottom: 1rem;">
+                            Apply for Property
+                        </button>
+                    </div>
+
+                    <div class="detail-card" style="margin-top: 2rem;">
+                        <h3>Schedule a Tour</h3>
+                        <p style="font-size:0.9rem; color:#666; margin-bottom:1rem;">See it for yourself.</p>
+                        <div class="tour-form">
+                            <input type="date" class="w-full"
+                                style="padding:0.8rem; border:1px solid #ddd; border-radius:8px;">
+                            <select class="w-full" style="padding:0.8rem; border:1px solid #ddd; border-radius:8px;">
+                                <option>Select Time</option>
+                                <option>10:00 AM</option>
+                                <option>1:00 PM</option>
+                                <option>3:30 PM</option>
+                            </select>
+                            <button class="btn btn-outline w-full" id="requestTourBtn">Request Tour</button>
+                        </div>
+                    </div>
+
+                    <div class="detail-card" style="margin-top: 2rem;">
+                        <h3>Mortgage Calculator</h3>
+                        <div style="margin-top: 1.5rem;">
+                            <div class="calc-input-group">
+                                <label>Home Price</label>
+                                <input type="number" id="calcPrice">
+                            </div>
+                            <div class="calc-input-group">
+                                <label>Down Payment ($)</label>
+                                <input type="number" id="calcDown">
+                            </div>
+                            <div class="calc-input-group">
+                                <label>Interest Rate (%)</label>
+                                <input type="number" id="calcRate" value="3.5" step="0.1">
+                            </div>
+                            <button id="calcBtn" class="btn btn-outline w-full">Calculate</button>
+
+                            <div class="calc-result" id="calcResult" style="display: none;">
+                                <p style="font-size: 0.9rem; margin-bottom: 0.5rem;">Estimated Monthly Payment</p>
+                                <h4 id="calcMonthly">$0</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Similar Properties -->
+            <div class="similar-section">
+                <h2 style="font-size: 2rem; margin-bottom: 1rem;">You might also like</h2>
+                <div class="similar-grid" id="similarGrid">
+                    <!-- Injected JS -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const params = new URLSearchParams(window.location.search);
+            const propId = params.get('id');
+            const user = JSON.parse(localStorage.getItem('user'));
+
+            if (!propId) {
+                window.location.href = 'index.html';
+                return;
+            }
+
+            try {
+                const prop = await window.api.getProperty(propId);
+                const allProps = await window.api.getProperties(); // for similar
+
+                // Populate Core Data
+                document.getElementById('propTitle').textContent = prop.title;
+                document.getElementById('propLocation').innerHTML = `<i class="fas fa-map-marker-alt"></i> ${prop.location}`;
+                document.getElementById('propPrice').textContent = `$${prop.price.toLocaleString()}/mo`;
+
+                // Gallery Setup
+                const mainImg = document.getElementById('propImg');
+                mainImg.src = prop.image_url;
+
+                // create mock thumbnails (using same image for demo)
+                const galleryGrid = document.getElementById('galleryGrid');
+                // Use a few random unsplash real estate images for variety in mock gallery
+                const mockImages = [
+                    prop.image_url,
+                    'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=300&q=80',
+                    'https://images.unsplash.com/photo-1484154218962-a1c19b5d29b2?auto=format&fit=crop&w=300&q=80',
+                    'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=300&q=80'
+                ];
+
+                mockImages.forEach((imgSrc, index) => {
+                    const thumb = document.createElement('img');
+                    thumb.src = imgSrc;
+                    thumb.className = `gallery-thumb ${index === 0 ? 'active' : ''}`;
+                    thumb.onclick = () => {
+                        document.getElementById('propImg').src = imgSrc;
+                        document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+                        thumb.classList.add('active');
+                    };
+                    galleryGrid.appendChild(thumb);
+                });
+
+
+                document.getElementById('propBeds').textContent = prop.bedrooms;
+                document.getElementById('propBaths').textContent = prop.bathrooms;
+                document.getElementById('propSqft').textContent = prop.sqft.toLocaleString();
+                document.getElementById('propType').textContent = prop.type;
+                document.getElementById('propDescription').textContent = prop.description;
+
+                // Amenities (Mock)
+                const amenities = [
+                    { icon: 'fa-wifi', text: 'High-Speed Wifi' },
+                    { icon: 'fa-parking', text: 'Parking Space' },
+                    { icon: 'fa-swimming-pool', text: 'Swimming Pool' },
+                    { icon: 'fa-dumbbell', text: 'Fitness Center' },
+                    { icon: 'fa-shield-alt', text: '24/7 Security' },
+                    { icon: 'fa-snowflake', text: 'Air Conditioning' }
+                ];
+                const amenitiesGrid = document.getElementById('amenitiesGrid');
+                amenities.forEach(am => {
+                    const div = document.createElement('div');
+                    div.className = 'amenity-item';
+                    div.innerHTML = `<i class="fas ${am.icon}"></i> ${am.text}`;
+                    amenitiesGrid.appendChild(div);
+                });
+
+                // Reviews (Mock)
+                const reviews = [
+                    { name: 'Sarah Johnson', date: 'Oct 2024', rating: 5, text: 'Absolutely stunning property! The landlord was very responsive and the amenities are top notch.' },
+                    { name: 'Michael Chen', date: 'Sep 2024', rating: 4, text: 'Great location, very close to the subway. A bit noisy at night but otherwise perfect.' }
+                ];
+                const reviewsList = document.getElementById('reviewsList');
+                reviews.forEach(r => {
+                    const div = document.createElement('div');
+                    div.className = 'review-item';
+                    div.innerHTML = `
+                        <div class="review-header">
+                            <div><strong>${r.name}</strong> <span style="color:#888; font-size:0.9rem;">${r.date}</span></div>
+                            <div class="stars">${'<i class="fas fa-star"></i>'.repeat(r.rating)}</div>
+                        </div>
+                        <p style="color:#555;">${r.text}</p>
+                    `;
+                    reviewsList.appendChild(div);
+                });
+
+
+                // Calculator Setup
+                const priceInput = document.getElementById('calcPrice');
+                const downInput = document.getElementById('calcDown');
+                priceInput.value = prop.price * 12 * 15; // Mock sale price
+                downInput.value = Math.floor(priceInput.value * 0.2);
+
+                document.getElementById('calcBtn').addEventListener('click', () => {
+                    const price = parseFloat(priceInput.value) || 0;
+                    const down = parseFloat(downInput.value) || 0;
+                    const P = price - down;
+                    const r = parseFloat(document.getElementById('calcRate').value) / 100 / 12;
+                    const terms = 30; // Default to 30 years as input is removed
+                    const n = terms * 12;
+
+                    if (P > 0) {
+                        const m = P * r * (Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+                        document.getElementById('calcMonthly').textContent = `$${m.toFixed(2)}`;
+                        document.getElementById('calcResult').style.display = 'block';
+                    }
+                });
+
+
+                // Similar Properties
+                const similarGrid = document.getElementById('similarGrid');
+                // Filter out current, get 3 random
+                const others = allProps.filter(p => p.id != prop.id);
+                // Shuffle simple
+                const shuffled = others.sort(() => 0.5 - Math.random());
+                const selected = shuffled.slice(0, 3);
+
+                selected.forEach(p => {
+                    const card = document.createElement('div');
+                    card.className = 'property-card'; // Reuse global styles if available or define basic
+                    // Since we didn't import the card styles fully, let's just make a simple card html or rely on index.css
+                    card.innerHTML = `
+                        <div class="property-img">
+                            <img src="${p.image_url}" alt="${p.title}">
+                            <span class="price-tag">$${p.price.toLocaleString()}/mo</span>
+                        </div>
+                        <div class="property-info">
+                            <h3>${p.title}</h3>
+                            <p class="location"><i class="fas fa-map-marker-alt"></i> ${p.location}</p>
+                            <div class="features">
+                                <span><i class="fas fa-bed"></i> ${p.bedrooms} Beds</span>
+                                <span><i class="fas fa-bath"></i> ${p.bathrooms} Baths</span>
+                                <span><i class="fas fa-expand-arrows-alt"></i> ${p.sqft} sqft</span>
+                            </div>
+                            <a href="property-detail.html?id=${p.id}" class="btn btn-primary w-full">View Details</a>
+                        </div>
+                    `;
+                    similarGrid.appendChild(card);
+                });
+
+
+                // UI Show
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('propertyContent').style.display = 'block';
+
+                document.getElementById('applyBtn').addEventListener('click', async () => {
+                    if (!user) {
+                        window.location.href = 'login.html';
+                        return;
+                    }
+
+                    try {
+                        document.getElementById('applyBtn').disabled = true;
+                        document.getElementById('applyBtn').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+
+                        await window.api.applyToProperty(propId, user.id);
+
+                        alert('Application submitted successfully!');
+                        window.location.href = 'dashboards/tenant/index.html';
+                    } catch (err) {
+                        console.error(err);
+                        alert('Failed to submit application: ' + err.message);
+                        document.getElementById('applyBtn').disabled = false;
+                        document.getElementById('applyBtn').textContent = 'Apply for Property';
+                    }
+                });
+
+            } catch (err) {
+                console.error(err);
+                alert('Failed to load property details.');
+            }
+        });
+    </script>
+    <div id="toast" class="notification-toast">
+        <i class="fas fa-check-circle"></i>
+        <span>Request sent successfully! We will contact you shortly.</span>
+    </div>
+    <style>
+        .notification-toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--bg-dark);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: var(--shadow-lg);
+            transform: translateY(150%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .notification-toast.active {
+            transform: translateY(0);
+        }
+    </style>
+    <script>
+        // Tour Request Logic
+        document.getElementById('requestTourBtn')?.addEventListener('click', () => {
+            const toast = document.getElementById('toast');
+            toast.classList.add('active');
+            setTimeout(() => toast.classList.remove('active'), 3000);
+        });
+    </script>
+</body>
+
+</html>

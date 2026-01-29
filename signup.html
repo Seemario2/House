@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | Oluwanjoba Homes</title>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/globals.css">
+    <style>
+        body {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+        }
+
+        .auth-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: var(--radius-lg);
+            width: 100%;
+            max-width: 480px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .auth-header .logo {
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: var(--radius);
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .role-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .role-btn {
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: var(--radius);
+            font-weight: 600;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        .role-btn.active {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: rgba(79, 70, 229, 0.05);
+        }
+
+        @media (max-width: 480px) {
+            .auth-card {
+                padding: 1.5rem;
+            }
+        }
+
+        .success-message {
+            display: none;
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            padding: 1rem;
+            border-radius: var(--radius);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-weight: 500;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="auth-card">
+        <div class="auth-header">
+            <a href="index.html" class="logo">
+                <i class="fas fa-home-alt"></i> Oluwanjoba <span>Homes</span>
+            </a>
+            <h2>Join Oluwanjoba Homes</h2>
+            <p>Create your account in seconds</p>
+        </div>
+
+        <div id="successMessage" class="success-message">
+            Registration successful! Redirecting to login...
+        </div>
+
+        <label
+            style="display: block; font-size: 0.9rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.5rem;">Join
+            as a</label>
+        <div class="role-selector">
+            <button class="role-btn active" id="tenantBtn" onclick="setRole('tenant')">Tenant</button>
+            <button class="role-btn" id="landlordBtn" onclick="setRole('landlord')">Landlord</button>
+        </div>
+
+
+        <form id="signupForm">
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" id="fullName" placeholder="John Doe" required>
+            </div>
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" id="email" placeholder="name@example.com" required>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="password" placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-full" style="justify-content: center; width: 100%;">Create
+                Account</button>
+        </form>
+
+        <p style="text-align: center; margin-top: 2rem; font-size: 0.9rem; color: var(--text-muted);">
+            Already have an account? <a href="login.html" style="color: var(--primary); font-weight: 600;">Sign in</a>
+        </p>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script>
+        let currentRole = 'tenant';
+
+        function setRole(role) {
+            currentRole = role;
+            document.getElementById('tenantBtn').classList.toggle('active', role === 'tenant');
+            document.getElementById('landlordBtn').classList.toggle('active', role === 'landlord');
+        }
+
+        document.getElementById('signupForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const userData = {
+                full_name: document.getElementById('fullName').value,
+                email: document.getElementById('email').value,
+                password: document.getElementById('password').value,
+                role: currentRole
+            };
+
+            try {
+                const result = await window.api.signup(userData);
+
+                // Show success message
+                document.getElementById('successMessage').style.display = 'block';
+                document.getElementById('signupForm').style.opacity = '0.5';
+                document.getElementById('signupForm').style.pointerEvents = 'none';
+
+                // Redirect after delay
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 2000);
+
+            } catch (err) {
+                console.error('Signup error:', err);
+                alert('Signup failed. ' + (err.message || 'Please try again.'));
+            }
+        });
+    </script>
+</body>
+
+</html>

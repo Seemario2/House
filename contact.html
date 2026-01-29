@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Oluwanjoba Homes</title>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/globals.css">
+    <link rel="stylesheet" href="css/index.css">
+    <style>
+        .page-header {
+            background-color: var(--bg-dark);
+            color: white;
+            padding: 120px 0 60px;
+            text-align: center;
+        }
+
+        .contact-container {
+            max-width: 1000px;
+            margin: -40px auto 4rem;
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            position: relative;
+            z-index: 10;
+        }
+
+        .contact-info {
+            background: var(--primary);
+            color: white;
+            padding: 3rem;
+        }
+
+        .contact-form {
+            padding: 3rem;
+        }
+
+        .info-item {
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .info-item i {
+            font-size: 1.5rem;
+            margin-top: 0.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+                margin: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar" style="background: white; box-shadow: var(--shadow-sm);">
+        <div class="container flex-between">
+            <a href="index.html" class="logo">
+                <i class="fas fa-home-alt"></i> Oluwanjoba <span>Homes</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html" style="color: var(--text-main);">Home</a></li>
+                <li><a href="properties.html" style="color: var(--text-main);">Properties</a></li>
+                <li><a href="about.html" style="color: var(--text-main);">About Us</a></li>
+                <li><a href="contact.html" class="active" style="color: var(--primary);">Contact</a></li>
+                <li><a href="login.html" class="btn btn-outline">Login</a></li>
+                <li><a href="signup.html" class="btn btn-primary">Join Now</a></li>
+            </ul>
+            <button class="mobile-menu-btn" style="color: var(--bg-dark);"><i class="fas fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Get in Touch</h1>
+            <p>We'd love to hear from you. Our team is always here to chat.</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <div class="contact-container">
+        <div class="contact-info">
+            <h3 style="font-size: 1.5rem; margin-bottom: 2rem;">Contact Information</h3>
+
+            <div class="info-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <div>
+                    <h5 style="margin-bottom: 0.5rem">Our Office</h5>
+                    <p>123 Real Estate Ave<br>Lagos, Nigeria</p>
+                </div>
+            </div>
+
+            <div class="info-item">
+                <i class="fas fa-envelope"></i>
+                <div>
+                    <h5 style="margin-bottom: 0.5rem">Email Us</h5>
+                    <p>hello@oluwanjobahomes.com<br>support@oluwanjobahomes.com</p>
+                </div>
+            </div>
+
+            <div class="info-item">
+                <i class="fas fa-phone-alt"></i>
+                <div>
+                    <h5 style="margin-bottom: 0.5rem">Call Us</h5>
+                    <p>+234 812 345 6789<br>Mon-Fri, 9am-6pm</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-form">
+            <h3 style="font-size: 1.5rem; margin-bottom: 2rem; color: var(--bg-dark);">Send us a Message</h3>
+            <form onsubmit="event.preventDefault(); alert('Message sent!');">
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Your Name</label>
+                    <input type="text" class="w-full"
+                        style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: var(--radius);"
+                        required>
+                </div>
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Email Address</label>
+                    <input type="email" class="w-full"
+                        style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: var(--radius);"
+                        required>
+                </div>
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Message</label>
+                    <textarea class="w-full" rows="5"
+                        style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: var(--radius);"
+                        required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container grid-4">
+            <div class="footer-brand">
+                <a href="#" class="logo text-white">Oluwanjoba <span>Homes</span></a>
+                <p>Leading the market in modern property rentals and management solutions.</p>
+                <div class="socials">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="careers.html">Careers</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="safety.html">Safety</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Newsletter</h4>
+                <div class="newsletter-form">
+                    <input type="email" placeholder="Email address">
+                    <button class="btn btn-primary">Subscribe</button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Oluwanjoba Homes. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/shared.js"></script>
+</body>
+
+</html>

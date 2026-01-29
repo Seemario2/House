@@ -1,0 +1,84 @@
+<div class="section-header">
+    <div>
+        <h2>Add New Property</h2>
+        <p>Fill out the details below to list your property on Oluwanjoba Homes.</p>
+    </div>
+</div>
+
+<div class="analytics-card" style="max-width: 900px; margin: 0 auto;">
+    <form id="dedicatedAddPropertyForm" onsubmit="Dashboard.handleDedicatedAddProperty(event)">
+        <div class="form-section" style="margin-bottom: 2rem;">
+            <h3 style="margin-bottom: 1.5rem; color: var(--primary);">Basic Information</h3>
+            <div class="form-group">
+                <label>Property Title</label>
+                <input type="text" name="title" required placeholder="e.g. Modern Sunset Villa">
+            </div>
+            <div class="form-row" style="grid-template-columns: 1fr 1fr;">
+                <div class="form-group">
+                    <label>Price ($/month)</label>
+                    <input type="number" name="price" required placeholder="3000" min="1">
+                </div>
+                <div class="form-group">
+                    <label>Property Type</label>
+                    <select name="type">
+                        <option value="Apartment">Apartment</option>
+                        <option value="House">House</option>
+                        <option value="Condo">Condo</option>
+                        <option value="Studio">Studio</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-section" style="margin-bottom: 2rem;">
+            <h3 style="margin-bottom: 1.5rem; color: var(--primary);">Location & Details</h3>
+            <div class="form-group">
+                <label>Address / Location</label>
+                <input type="text" name="location" required placeholder="Beverly Hills, CA" minlength="3">
+            </div>
+            <div class="form-row" style="grid-template-columns: 1fr 1fr 1fr;">
+                <div class="form-group">
+                    <label>Bedrooms</label>
+                    <input type="number" name="bedrooms" required value="1" min="0">
+                </div>
+                <div class="form-group">
+                    <label>Bathrooms</label>
+                    <input type="number" name="bathrooms" required value="1" min="0">
+                </div>
+                <div class="form-group">
+                    <label>Total Sqft</label>
+                    <input type="number" name="sqft" required placeholder="1200" min="50">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-section" style="margin-bottom: 2rem;">
+            <h3 style="margin-bottom: 1.5rem; color: var(--primary);">Media & Description</h3>
+            <div class="form-group">
+                <label>Property Images</label>
+                <div class="upload-zone" id="imageUploadZone"
+                    onclick="document.getElementById('propertyImages').click()">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Drag & Drop images here or click to browse</p>
+                    <span>Support JPG, PNG (Max 5MB)</span>
+                    <input type="file" id="propertyImages" name="images" multiple
+                        accept="image/png, image/jpeg, image/webp" style="display: none;">
+                </div>
+                <!-- Preview Container -->
+                <div class="preview-grid" id="imagePreviewContainer"></div>
+                <input type="hidden" name="image_url" id="featuredImageUrl">
+            </div>
+            <div class="form-group">
+                <label>Property Description</label>
+                <textarea name="description" rows="5"
+                    placeholder="Highlight the best features of your property..."></textarea>
+            </div>
+        </div>
+
+        <div class="form-actions"
+            style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #eee;">
+            <button type="button" class="btn btn-outline" onclick="Dashboard.loadPage('properties')">Cancel</button>
+            <button type="submit" class="btn btn-primary" style="padding: 0.75rem 3rem;">Publish Listing</button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,89 @@
+<div class="section-header">
+    <div>
+        <h2>My Properties</h2>
+        <p>Manage your listed properties and add new ones.</p>
+    </div>
+    <button class="btn btn-primary" data-modal="addPropertyModal"><i class="fas fa-plus"></i> Add New Property</button>
+</div>
+
+<div class="property-list">
+    <div class="list-header">
+        <h3>All Listings</h3>
+        <div class="search-sm">
+            <input type="text" placeholder="Search properties..." onkeyup="Dashboard.filterProperties(this.value)">
+        </div>
+    </div>
+
+    <div id="propertyListContainer">
+        <!-- Properties will be injected here -->
+        <div class="flex-center" style="padding: 2rem;">
+            <i class="fas fa-spinner fa-spin"></i>
+        </div>
+    </div>
+</div>
+
+<!-- Add Property Modal -->
+<div id="addPropertyModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Add New Property</h3>
+            <button class="modal-close"><i class="fas fa-times"></i></button>
+        </div>
+        <form id="addPropertyForm" onsubmit="Dashboard.handleAddProperty(event)">
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" name="title" required placeholder="Luxurious Beachfront Villa">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Price ($/month)</label>
+                    <input type="number" name="price" required placeholder="2500">
+                </div>
+                <div class="form-group">
+                    <label>Type</label>
+                    <select name="type">
+                        <option value="Apartment">Apartment</option>
+                        <option value="House">House</option>
+                        <option value="Condo">Condo</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Location</label>
+                <input type="text" name="location" required placeholder="Malibu, CA">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Beds</label>
+                    <input type="number" name="bedrooms" required value="1">
+                </div>
+                <div class="form-group">
+                    <label>Baths</label>
+                    <input type="number" name="bathrooms" required value="1">
+                </div>
+                <div class="form-group">
+                    <label>Sqft</label>
+                    <input type="number" name="sqft" required value="1000">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Property Image</label>
+                <div class="upload-zone" id="modalImageUploadZone"
+                    onclick="document.getElementById('modalPropertyImages').click()">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Drag & Drop image here or click to browse</p>
+                    <span>Support JPG, PNG (Max 5MB)</span>
+                    <input type="file" id="modalPropertyImages" name="images" accept="image/*" style="display: none;">
+                </div>
+                <div class="preview-grid" id="modalImagePreviewContainer"></div>
+                <input type="hidden" name="image_url" id="modalFeaturedImageUrl">
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea name="description" rows="3" placeholder="Describe your property..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary w-full" style="justify-content: center;">Publish
+                Listing</button>
+        </form>
+    </div>
+</div>

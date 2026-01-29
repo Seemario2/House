@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | Oluwanjoba Homes</title>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/globals.css">
+    <link rel="stylesheet" href="css/index.css">
+    <style>
+        .page-header {
+            background-color: var(--bg-dark);
+            color: white;
+            padding: 120px 0 60px;
+            text-align: center;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .blog-img {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .blog-content {
+            padding: 1.5rem;
+        }
+
+        .blog-date {
+            font-size: 0.85rem;
+            color: var(--primary);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .blog-content h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .blog-content p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .read-more {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .read-more:hover {
+            gap: 0.8rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar" style="background: white; box-shadow: var(--shadow-sm);">
+        <div class="container flex-between">
+            <a href="index.html" class="logo">
+                <i class="fas fa-home-alt"></i> Oluwanjoba <span>Homes</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html" style="color: var(--text-main);">Home</a></li>
+                <li><a href="properties.html" style="color: var(--text-main);">Properties</a></li>
+                <li><a href="about.html" style="color: var(--text-main);">About Us</a></li>
+                <li><a href="contact.html" style="color: var(--text-main);">Contact</a></li>
+                <li><a href="login.html" class="btn btn-outline">Login</a></li>
+                <li><a href="signup.html" class="btn btn-primary">Join Now</a></li>
+            </ul>
+            <button class="mobile-menu-btn" style="color: var(--bg-dark);"><i class="fas fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Our Blog</h1>
+            <p>Insights, tips, and news from the world of real estate.</p>
+        </div>
+    </section>
+
+    <!-- Blog Content -->
+    <section class="section">
+        <div class="container">
+            <div class="blog-grid" id="blogGrid">
+                <!-- Posts will be loaded here -->
+                <div style="grid-column: 1/-1; text-align: center; padding: 3rem;">
+                    <i class="fas fa-spinner fa-spin fa-2x" style="color: var(--primary);"></i>
+                    <p style="margin-top: 1rem; color: var(--text-muted);">Loading posts...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container grid-4">
+            <div class="footer-brand">
+                <a href="#" class="logo text-white">Oluwanjoba <span>Homes</span></a>
+                <p>Leading the market in modern property rentals and management solutions.</p>
+                <div class="socials">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="careers.html">Careers</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="safety.html">Safety</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Newsletter</h4>
+                <div class="newsletter-form">
+                    <input type="email" placeholder="Email address">
+                    <button class="btn btn-primary">Subscribe</button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Oluwanjoba Homes. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/api.js"></script>
+    <script src="js/shared.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const blogGrid = document.getElementById('blogGrid');
+
+            try {
+                const posts = await window.api.getBlogPosts();
+
+                if (posts.length === 0) {
+                    blogGrid.innerHTML = `
+                        <div style="grid-column: 1/-1; text-align: center; padding: 4rem;">
+                            <i class="fas fa-newspaper fa-3x" style="color: var(--text-muted); margin-bottom: 1rem;"></i>
+                            <h3>No posts yet</h3>
+                            <p style="color: var(--text-muted);">Check back later for the latest updates.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                blogGrid.innerHTML = posts.map(post => `
+                    <div class="blog-card">
+                        <img src="${post.image_url || 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800'}" 
+                             class="blog-img" alt="${post.title}">
+                        <div class="blog-content">
+                            <span class="blog-date">${new Date(post.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}</span>
+                            <h3>${post.title}</h3>
+                            <p>${post.content}</p>
+                            <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                `).join('');
+
+            } catch (err) {
+                console.error('Failed to load blog posts:', err);
+                blogGrid.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; color: var(--danger); padding: 3rem;">
+                        <i class="fas fa-exclamation-circle fa-2x" style="margin-bottom: 1rem;"></i>
+                        <p>Failed to load blog posts. Please try again later.</p>
+                    </div>
+                `;
+            }
+        });
+    </script>
+</body>
+
+</html>

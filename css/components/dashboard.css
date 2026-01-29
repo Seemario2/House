@@ -1,0 +1,251 @@
+/* Dashboard Layout */
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 280px;
+    background: var(--bg-dark);
+    color: white;
+    padding: 2rem 1.5rem;
+    position: fixed;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    transition: var(--transition);
+}
+
+.sidebar .logo {
+    color: white;
+    margin-bottom: 3rem;
+    font-size: 1.8rem;
+}
+
+.sidebar-menu {
+    flex: 1;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    color: rgba(255, 255, 255, 0.7);
+    border-radius: var(--radius);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.menu-item i {
+    font-size: 1.25rem;
+    width: 24px;
+}
+
+.menu-item.active,
+.menu-item:hover {
+    background: rgba(79, 70, 229, 0.1);
+    color: white;
+}
+
+.menu-item.active {
+    background: var(--primary);
+}
+
+.sidebar-footer {
+    margin-top: auto;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    margin-left: 280px;
+    background: var(--bg-light);
+}
+
+/* Top Navbar */
+.top-nav {
+    height: 80px;
+    background: white;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 0;
+    z-index: 90;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.nav-icon-btn {
+    position: relative;
+    font-size: 1.2rem;
+    color: var(--text-muted);
+}
+
+.notification-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: var(--danger);
+    color: white;
+    font-size: 0.6rem;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-left: 1.5rem;
+    border-left: 1px solid #eee;
+}
+
+.user-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #ddd;
+    object-fit: cover;
+}
+
+.user-info .name {
+    display: block;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.user-info .role {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+/* Responsive Sidebar */
+@media (max-width: 1024px) {
+    .sidebar {
+        left: -280px;
+    }
+
+    .sidebar.active {
+        left: 0;
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+
+    .sidebar-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: none;
+        z-index: 95;
+    }
+
+    .sidebar-overlay.active {
+        display: block;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-content {
+        padding: 1rem !important;
+    }
+}
+
+/* Upload & Media Components */
+.upload-zone {
+    border: 2px dashed #ddd;
+    border-radius: var(--radius);
+    padding: 2.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition);
+    background: #fcfcfd;
+    position: relative;
+    overflow: hidden;
+}
+
+.upload-zone:hover,
+.upload-zone.dragover {
+    border-color: var(--primary);
+    background: #f5f6ff;
+}
+
+.upload-zone i {
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+.upload-zone p {
+    color: var(--text-dark);
+    font-weight: 500;
+}
+
+.upload-zone span {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+.preview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.preview-item {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid #eee;
+}
+
+.preview-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.preview-item .remove-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 24px;
+    height: 24px;
+    background: rgba(255, 0, 0, 0.8);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.75rem;
+    transition: var(--transition);
+}
+
+.preview-item .remove-btn:hover {
+    background: var(--danger);
+    transform: scale(1.1);
+}
