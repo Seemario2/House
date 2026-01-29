@@ -97,6 +97,25 @@ ul {
 @media (max-width: 768px) {
     .container {
         padding: 0 1rem;
+        /* Reduce padding for mobile */
+    }
+
+    h1 {
+        font-size: 2rem !important;
+    }
+
+    h2 {
+        font-size: 1.75rem !important;
+    }
+
+    h3 {
+        font-size: 1.25rem !important;
+    }
+
+    .btn {
+        width: 100%;
+        /* Full width buttons on mobile */
+        justify-content: center;
     }
 }
 

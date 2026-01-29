@@ -142,6 +142,19 @@
             gap: 1rem;
         }
 
+        /* Mobile Table Fix */
+        @media (max-width: 768px) {
+            .applications-table {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            /* Ensure table doesn't shrink absurdly */
+            table {
+                min-width: 600px;
+            }
+        }
+
         .property-cell img {
             width: 45px;
             height: 45px;
