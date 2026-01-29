@@ -81,6 +81,13 @@
     z-index: 90;
 }
 
+.sidebar-toggle {
+    display: none;
+    /* Hide on desktop */
+    font-size: 1.5rem;
+    color: var(--text-dark);
+}
+
 .nav-right {
     display: flex;
     align-items: center;
@@ -143,6 +150,11 @@
 
     .sidebar.active {
         left: 0;
+    }
+
+    .sidebar-toggle {
+        display: block;
+        /* Show on mobile/tablet */
     }
 
     .main-content {
