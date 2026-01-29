@@ -350,6 +350,31 @@
     </footer>
 
     <script src="js/shared.js"></script>
+    <script>
+        // Scroll Animation Observer
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-fade-in');
+                        observer.unobserve(entry.target); // Only animate once
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all sections and cards
+            const elementsToAnimate = document.querySelectorAll('section, .property-card, .process-card, .city-card, .testimonial-card');
+            elementsToAnimate.forEach(el => {
+                el.style.opacity = '0'; // Hide initially
+                observer.observe(el);
+            });
+        });
+    </script>
 </body>
 
 </html>
