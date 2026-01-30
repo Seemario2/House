@@ -35,11 +35,20 @@ else:
 SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL")
 
 if SQLALCHEMY_DATABASE_URL:
-    # Production (PostgreSQL)
-    # Fix for Heroku/Render providing postgres:// instead of postgresql://
-    if SQLALCHEMY_DATABASE_URL.startswith("postgres://"):
-        SQLALCHEMY_DATABASE_URL = SQLALCHEMY_DATABASE_URL.replace("postgres://", "postgresql://", 1)
-    engine = create_engine(SQLALCHEMY_DATABASE_URL)
+    try:
+        # Production (PostgreSQL)
+        # Fix for Heroku/Render providing postgres:// instead of postgresql://
+        if SQLALCHEMY_DATABASE_URL.startswith("postgres://"):
+            SQLALCHEMY_DATABASE_URL = SQLALCHEMY_DATABASE_URL.replace("postgres://", "postgresql://", 1)
+        engine = create_engine(SQLALCHEMY_DATABASE_URL)
+        # Test connection
+        with engine.connect() as connection:
+            pass
+        print(f"Connected to Database")
+    except Exception as e:
+        print(f"Database connection failed: {e}. Falling back to SQLite.")
+        SQLALCHEMY_DATABASE_URL = "sqlite:///./nexestate.db"
+        engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
 else:
     # Local (SQLite)
     SQLALCHEMY_DATABASE_URL = "sqlite:///./nexestate.db"
@@ -97,17 +106,30 @@ def signup(data: dict, db: Session = Depends(get_db)):
     if db_user:
         raise HTTPException(status_code=400, detail="Email already registered")
     
+    # Tenants approved by default
+    is_approved = (data["role"] == "tenant")
+    
     new_user = User(
         full_name=data["full_name"],
         email=data["email"],
         hashed_password=get_password_hash(data["password"]),
         role=data["role"],
-        is_approved=(data["role"] == "tenant") # Tenants approved by default
+        is_approved=is_approved
     )
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
-    return {"message": "User created successfully"}
+    
+    # Auto-login: Create token immediately
+    token = create_access_token(data={"sub": new_user.email, "role": new_user.role, "id": new_user.id})
+    
+    return {
+        "message": "User created successfully",
+        "access_token": token,
+        "token_type": "bearer",
+        "role": new_user.role,
+        "is_approved": new_user.is_approved
+    }
 
 @app.post("/api/auth/login")
 def login(data: dict, db: Session = Depends(get_db)):
@@ -116,7 +138,12 @@ def login(data: dict, db: Session = Depends(get_db)):
         raise HTTPException(status_code=401, detail="Invalid credentials")
     
     token = create_access_token(data={"sub": user.email, "role": user.role, "id": user.id})
-    return {"access_token": token, "token_type": "bearer", "role": user.role}
+    return {
+        "access_token": token, 
+        "token_type": "bearer", 
+        "role": user.role,
+        "is_approved": user.is_approved
+    }
 
 # --- Property Endpoints ---
 

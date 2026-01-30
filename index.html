@@ -63,9 +63,9 @@
                     <label>Price Range</label>
                     <select id="homeSearchPrice" style="border: none; outline: none; width: 100%;">
                         <option value="">Any Price</option>
-                        <option value="0-1000">Under $1,000</option>
-                        <option value="1000-2000">$1,000 - $2,000</option>
-                        <option value="2000+">$2,000+</option>
+                        <option value="0-500000">Under ₦500k</option>
+                        <option value="500000-2000000">₦500k - ₦2M</option>
+                        <option value="2000000+">₦2M+</option>
                     </select>
                 </div>
                 <button class="search-btn" id="homeSearchBtn"><i class="fas fa-search"></i> Search</button>
@@ -124,15 +124,15 @@
                 <div class="property-img">
                     <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=800"
                         alt="Modern Villa">
-                    <span class="price-tag">$3,200/mo</span>
+                    <span class="price-tag">₦3.5M/mo</span>
                 </div>
                 <div class="property-info">
                     <h3>Skyline Modern Villa</h3>
-                    <p class="location"><i class="fas fa-map-marker-alt"></i> Beverly Hills, CA</p>
+                    <p class="location"><i class="fas fa-map-marker-alt"></i> Lekki Phase 1, Lagos</p>
                     <div class="features">
                         <span><i class="fas fa-bed"></i> 4 Beds</span>
-                        <span><i class="fas fa-bath"></i> 3 Baths</span>
-                        <span><i class="fas fa-expand-arrows-alt"></i> 2,400 sqft</span>
+                        <span><i class="fas fa-bath"></i> 4 Baths</span>
+                        <span><i class="fas fa-expand-arrows-alt"></i> 600 sqm</span>
                     </div>
                     <a href="property-detail.html?id=1" class="btn btn-primary w-full">View Details</a>
                 </div>
@@ -142,15 +142,15 @@
                 <div class="property-img">
                     <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800"
                         alt="Urban Studio">
-                    <span class="price-tag">$1,800/mo</span>
+                    <span class="price-tag">₦800k/mo</span>
                 </div>
                 <div class="property-info">
-                    <h3>Urban Minimalist Studio</h3>
-                    <p class="location"><i class="fas fa-map-marker-alt"></i> Manhattan, NY</p>
+                    <h3>Luxury Serviced Apartment</h3>
+                    <p class="location"><i class="fas fa-map-marker-alt"></i> Victoria Island, Lagos</p>
                     <div class="features">
-                        <span><i class="fas fa-bed"></i> 1 Bed</span>
-                        <span><i class="fas fa-bath"></i> 1 Bath</span>
-                        <span><i class="fas fa-expand-arrows-alt"></i> 850 sqft</span>
+                        <span><i class="fas fa-bed"></i> 2 Bed</span>
+                        <span><i class="fas fa-bath"></i> 2 Bath</span>
+                        <span><i class="fas fa-expand-arrows-alt"></i> 150 sqm</span>
                     </div>
                     <a href="property-detail.html?id=2" class="btn btn-primary w-full">View Details</a>
                 </div>
@@ -160,15 +160,15 @@
                 <div class="property-img">
                     <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800"
                         alt="Lakeside House">
-                    <span class="price-tag">$2,500/mo</span>
+                    <span class="price-tag">₦5M/mo</span>
                 </div>
                 <div class="property-info">
-                    <h3>Azure Lakeside House</h3>
-                    <p class="location"><i class="fas fa-map-marker-alt"></i> Austin, TX</p>
+                    <h3>Diplomatic Zone Mansion</h3>
+                    <p class="location"><i class="fas fa-map-marker-alt"></i> Maitama, Abuja</p>
                     <div class="features">
-                        <span><i class="fas fa-bed"></i> 3 Beds</span>
-                        <span><i class="fas fa-bath"></i> 2 Baths</span>
-                        <span><i class="fas fa-expand-arrows-alt"></i> 1,800 sqft</span>
+                        <span><i class="fas fa-bed"></i> 5 Beds</span>
+                        <span><i class="fas fa-bath"></i> 6 Baths</span>
+                        <span><i class="fas fa-expand-arrows-alt"></i> 1,200 sqm</span>
                     </div>
                     <a href="property-detail.html?id=3" class="btn btn-primary w-full">View Details</a>
                 </div>
@@ -204,49 +204,7 @@
         </div>
     </section>
 
-    <!-- Explore Cities -->
-    <section class="city-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Explore by City</h2>
-                <p>Popular locations our users love</p>
-            </div>
-            <div class="city-grid">
-                <div class="city-card">
-                    <img src="https://images.unsplash.com/photo-1496417263034-38ec4f0d6b21?auto=format&fit=crop&w=800"
-                        class="city-img" alt="New York">
-                    <div class="city-overlay">
-                        <h3>New York</h3>
-                        <p>120+ Listings</p>
-                    </div>
-                </div>
-                <div class="city-card">
-                    <img src="https://images.unsplash.com/photo-1534237710431-e2fc698436d0?auto=format&fit=crop&w=800"
-                        class="city-img" alt="Los Angeles">
-                    <div class="city-overlay">
-                        <h3>Los Angeles</h3>
-                        <p>85+ Listings</p>
-                    </div>
-                </div>
-                <div class="city-card">
-                    <img src="https://images.unsplash.com/photo-1506765515384-028b60a970df?auto=format&fit=crop&w=800"
-                        class="city-img" alt="Chicago">
-                    <div class="city-overlay">
-                        <h3>Chicago</h3>
-                        <p>60+ Listings</p>
-                    </div>
-                </div>
-                <div class="city-card">
-                    <img src="https://images.unsplash.com/photo-1542317148-8b4bdccb33ea?auto=format&fit=crop&w=800"
-                        class="city-img" alt="Austin">
-                    <div class="city-overlay">
-                        <h3>Austin</h3>
-                        <p>45+ Listings</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+
 
     <!-- Testimonials -->
     <section class="testimonials-section">
@@ -312,7 +270,9 @@
     <footer class="footer">
         <div class="container grid-4">
             <div class="footer-brand">
-                <a href="#" class="logo text-white">Oluwanjoba <span>Homes</span></a>
+                <a href="#" class="logo text-white">
+                    <i class="fas fa-home-alt"></i> Oluwanjoba <span>Homes</span>
+                </a>
                 <p>Leading the market in modern property rentals and management solutions.</p>
                 <div class="socials">
                     <a href="#"><i class="fab fa-facebook"></i></a>
@@ -348,6 +308,8 @@
             <p>&copy; 2026 Oluwanjoba Homes. All rights reserved.</p>
         </div>
     </footer>
+
+
 
     <script src="js/shared.js"></script>
     <script>

@@ -65,7 +65,8 @@
     <nav class="navbar" style="background: white; box-shadow: var(--shadow-sm);">
         <div class="container flex-between">
             <a href="index.html" class="logo">
-                <i class="fas fa-home-alt"></i> Oluwanjoba <span>Homes</span>
+                <img src="assets/images/logo.png" alt="Oluwanjoba Homes" class="logo-img">
+                Oluwanjoba <span>Homes</span>
             </a>
             <ul class="nav-links">
                 <li><a href="index.html" style="color: var(--text-main);">Home</a></li>
@@ -104,10 +105,10 @@
                 </div>
                 <div class="filter-group">
                     <select id="filterPrice">
-                        <option value="">Price Range</option>
-                        <option value="0-1000">Under $1,000</option>
-                        <option value="1000-2000">$1,000 - $2,000</option>
-                        <option value="2000+">$2,000+</option>
+                        <option value="">Any Price</option>
+                        <option value="0-500000">Under ₦500k</option>
+                        <option value="500000-2000000">₦500k - ₦2M</option>
+                        <option value="2000000+">₦2M+</option>
                     </select>
                 </div>
                 <button class="btn btn-primary" id="applyFiltersBtn">Apply Filters</button>
@@ -129,7 +130,9 @@
     <footer class="footer">
         <div class="container grid-4">
             <div class="footer-brand">
-                <a href="#" class="logo text-white">Oluwanjoba <span>Homes</span></a>
+                <a href="#" class="logo text-white">
+                    <i class="fas fa-home-alt"></i> Oluwanjoba <span>Homes</span>
+                </a>
                 <p>Leading the market in modern property rentals and management solutions.</p>
                 <div class="socials">
                     <a href="#"><i class="fab fa-facebook"></i></a>
@@ -165,6 +168,8 @@
             <p>&copy; 2026 Oluwanjoba Homes. All rights reserved.</p>
         </div>
     </footer>
+
+
 
     <script src="js/api.js"></script>
     <script src="js/shared.js"></script>
@@ -218,9 +223,9 @@
                     let matchPrice = true;
                     if (priceVal) {
                         const price = parseFloat(prop.price);
-                        if (priceVal === '0-1000') matchPrice = price < 1000;
-                        else if (priceVal === '1000-2000') matchPrice = price >= 1000 && price <= 2000;
-                        else if (priceVal === '2000+') matchPrice = price > 2000;
+                        if (priceVal === '0-500000') matchPrice = price < 500000;
+                        else if (priceVal === '500000-2000000') matchPrice = price >= 500000 && price <= 2000000;
+                        else if (priceVal === '2000000+') matchPrice = price > 2000000;
                     }
 
                     return matchLoc && matchType && matchPrice;
@@ -244,7 +249,7 @@
                     card.innerHTML = `
                         <div class="property-img">
                             <img src="${prop.image_url}" alt="${prop.title}">
-                            <span class="price-tag">$${prop.price}/mo</span>
+                            <span class="price-tag">₦${prop.price.toLocaleString()}/mo</span>
                             <button class="favorite-btn ${isFav ? 'active' : ''}" data-id="${prop.id}" onclick="toggleFavorite(event, ${prop.id}, this)">
                                 <i class="${isFav ? 'fas' : 'far'} fa-heart"></i>
                             </button>
@@ -329,9 +334,9 @@
                     let matchPrice = true;
                     if (priceVal) {
                         const price = parseFloat(prop.price);
-                        if (priceVal === '0-1000') matchPrice = price < 1000;
-                        else if (priceVal === '1000-2000') matchPrice = price >= 1000 && price <= 2000;
-                        else if (priceVal === '2000+') matchPrice = price > 2000;
+                        if (priceVal === '0-500000') matchPrice = price < 500000;
+                        else if (priceVal === '500000-2000000') matchPrice = price >= 500000 && price <= 2000000;
+                        else if (priceVal === '2000000+') matchPrice = price > 2000000;
                     }
                     return matchLoc && matchType && matchPrice;
                 });

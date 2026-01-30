@@ -61,13 +61,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const navLinks = document.querySelector('.nav-links');
 
         if (mobileBtn && navLinks) {
+            // Initial state
+            mobileBtn.setAttribute('aria-expanded', 'false');
+            mobileBtn.setAttribute('aria-label', 'Toggle navigation menu');
+
             mobileBtn.addEventListener('click', () => {
-                navLinks.classList.toggle('active');
+                const isExpanded = navLinks.classList.toggle('active');
+                mobileBtn.setAttribute('aria-expanded', isExpanded);
 
                 // Toggle icon
                 const icon = mobileBtn.querySelector('i');
                 if (icon) {
-                    if (navLinks.classList.contains('active')) {
+                    if (isExpanded) {
                         icon.classList.remove('fa-bars');
                         icon.classList.add('fa-times');
                     } else {

@@ -2,7 +2,7 @@
  * Oluwanjoba Homes API Utility - Centralized Pattern
  */
 
-const API_BASE_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+const API_BASE_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:')
     ? 'http://127.0.0.1:8000/api'
     : '/api';
 
@@ -47,16 +47,23 @@ const API = {
             method: 'POST',
             body: JSON.stringify({ email, password, role })
         });
-        localStorage.setItem('token', data.access_token);
-        localStorage.setItem('user', JSON.stringify(data));
+        if (data.access_token) {
+            localStorage.setItem('token', data.access_token);
+            localStorage.setItem('user', JSON.stringify(data));
+        }
         return data;
     },
 
     async signup(userData) {
-        return this.request('/auth/signup', {
+        const data = await this.request('/auth/signup', {
             method: 'POST',
             body: JSON.stringify(userData)
         });
+        if (data.access_token) {
+            localStorage.setItem('token', data.access_token);
+            localStorage.setItem('user', JSON.stringify(data));
+        }
+        return data;
     },
 
     // Properties

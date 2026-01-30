@@ -175,17 +175,25 @@
             };
 
             try {
-                const result = await window.api.signup(userData);
+                const data = await window.api.signup(userData);
 
-                // Show success message
+                // Auto-login successful
+                document.getElementById('successMessage').textContent = 'Account created! Redirecting...';
                 document.getElementById('successMessage').style.display = 'block';
-                document.getElementById('signupForm').style.opacity = '0.5';
-                document.getElementById('signupForm').style.pointerEvents = 'none';
 
-                // Redirect after delay
                 setTimeout(() => {
-                    window.location.href = 'login.html';
-                }, 2000);
+                    if (data.is_approved) {
+                        // Redirect to dashboard
+                        if (data.role === 'tenant') {
+                            window.location.href = 'dashboards/tenant/index.html';
+                        } else {
+                            window.location.href = 'dashboards/landlord/index.html';
+                        }
+                    } else {
+                        // Not approved yet (e.g. Landlord)
+                        window.location.href = 'waiting-approval.html';
+                    }
+                }, 1000);
 
             } catch (err) {
                 console.error('Signup error:', err);

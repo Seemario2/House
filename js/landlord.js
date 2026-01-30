@@ -191,7 +191,7 @@ const Dashboard = {
                 <img src="${prop.image_url}" class="property-thumb" alt="${prop.title}">
                 <div>
                     <strong>${prop.title}</strong>
-                    <div style="font-size: 0.8rem; color: var(--text-muted)">0 Applications | $${prop.price}/mo</div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted)">0 Applications | ₦${prop.price}/mo</div>
                 </div>
                 <div class="property-actions">
                     <a href="../../property-detail.html?id=${prop.id}" class="btn-icon"><i class="fas fa-external-link-alt"></i></a>

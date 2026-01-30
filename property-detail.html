@@ -418,7 +418,7 @@
                     <div class="detail-card">
                         <h3>Location</h3>
                         <div class="map-placeholder">
-                            <img src="https://static.mapbiler.com/img/staticmap_500x300.png?lat=6.5244&lon=3.3792&z=13"
+                            <img src="https://static.mapbiler.com/img/staticmap_500x300.png?lat=6.4541&lon=3.4308&z=13"
                                 alt="Map Placeholder"
                                 onerror="this.src='https://via.placeholder.com/500x300?text=Map+View'">
                             <div
@@ -467,11 +467,11 @@
                         <h3>Mortgage Calculator</h3>
                         <div style="margin-top: 1.5rem;">
                             <div class="calc-input-group">
-                                <label>Home Price</label>
+                                <label>Home Price (₦)</label>
                                 <input type="number" id="calcPrice">
                             </div>
                             <div class="calc-input-group">
-                                <label>Down Payment ($)</label>
+                                <label>Down Payment (₦)</label>
                                 <input type="number" id="calcDown">
                             </div>
                             <div class="calc-input-group">
@@ -519,7 +519,7 @@
                 // Populate Core Data
                 document.getElementById('propTitle').textContent = prop.title;
                 document.getElementById('propLocation').innerHTML = `<i class="fas fa-map-marker-alt"></i> ${prop.location}`;
-                document.getElementById('propPrice').textContent = `$${prop.price.toLocaleString()}/mo`;
+                document.getElementById('propPrice').textContent = `₦${prop.price.toLocaleString()}/mo`;
 
                 // Gallery Setup
                 const mainImg = document.getElementById('propImg');
@@ -607,7 +607,7 @@
 
                     if (P > 0) {
                         const m = P * r * (Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
-                        document.getElementById('calcMonthly').textContent = `$${m.toFixed(2)}`;
+                        document.getElementById('calcMonthly').textContent = `₦${m.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
                         document.getElementById('calcResult').style.display = 'block';
                     }
                 });
@@ -628,7 +628,7 @@
                     card.innerHTML = `
                         <div class="property-img">
                             <img src="${p.image_url}" alt="${p.title}">
-                            <span class="price-tag">$${p.price.toLocaleString()}/mo</span>
+                            <span class="price-tag">₦${p.price.toLocaleString()}/mo</span>
                         </div>
                         <div class="property-info">
                             <h3>${p.title}</h3>
@@ -677,6 +677,49 @@
             }
         });
     </script>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container grid-4">
+            <div class="footer-brand">
+                <a href="#" class="logo text-white">
+                    <i class="fas fa-home-alt"></i> Oluwanjoba <span>Homes</span>
+                </a>
+                <p>Leading the market in modern property rentals and management solutions.</p>
+                <div class="socials">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="careers.html">Careers</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="safety.html">Safety</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Newsletter</h4>
+                <div class="newsletter-form">
+                    <input type="email" placeholder="Email address">
+                    <button class="btn btn-primary">Subscribe</button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Oluwanjoba Homes. All rights reserved.</p>
+        </div>
+    </footer>
+
     <div id="toast" class="notification-toast">
         <i class="fas fa-check-circle"></i>
         <span>Request sent successfully! We will contact you shortly.</span>

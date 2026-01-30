@@ -147,12 +147,19 @@
 
             try {
                 const data = await window.api.login(email, password, currentRole);
-                if (data.role === 'tenant') {
-                    window.location.href = 'dashboards/tenant/index.html';
+
+                if (data.is_approved) {
+                    if (data.role === 'tenant') {
+                        window.location.href = 'dashboards/tenant/index.html';
+                    } else {
+                        window.location.href = 'dashboards/landlord/index.html';
+                    }
                 } else {
-                    window.location.href = 'dashboards/landlord/index.html';
+                    window.location.href = 'waiting-approval.html';
                 }
+
             } catch (err) {
+                console.error(err);
                 alert('Login failed. Please check your credentials.');
             }
         });
