@@ -155,11 +155,76 @@
             }
         }
 
+
         .property-cell img {
             width: 45px;
             height: 45px;
             border-radius: var(--radius-sm);
             object-fit: cover;
+        }
+
+        /* Mobile Optimizations */
+        @media (max-width: 768px) {
+            .user-info {
+                display: none;
+            }
+
+            .top-nav {
+                padding: 0 1rem;
+            }
+
+            /* Card View for Table */
+            .applications-table table,
+            .applications-table tbody,
+            .applications-table tr,
+            .applications-table td {
+                display: block;
+                width: 100%;
+            }
+
+            .applications-table thead {
+                display: none;
+            }
+
+            .applications-table tr {
+                margin-bottom: 1rem;
+                background: white;
+                border-bottom: 1px solid #eee;
+                padding: 1rem;
+            }
+
+            .applications-table td {
+                text-align: right;
+                padding: 0.5rem 0;
+                position: relative;
+                border: none;
+            }
+
+            .applications-table td::before {
+                content: attr(data-label);
+                float: left;
+                font-weight: 600;
+                color: var(--text-muted);
+            }
+
+            /* Special styling for Property Main Info */
+            .applications-table td:first-child {
+                text-align: left;
+                padding-bottom: 1rem;
+                border-bottom: 1px solid #f5f5f5;
+                margin-bottom: 0.5rem;
+            }
+
+            .applications-table td:first-child::before {
+                display: none;
+            }
+
+            .applications-table td:last-child {
+                display: flex;
+                justify-content: flex-end;
+                gap: 0.5rem;
+                margin-top: 0.5rem;
+            }
         }
     </style>
 </head>
@@ -346,7 +411,7 @@
                 } else {
                     tbody.innerHTML = applications.map(app => `
                         <tr>
-                            <td>
+                            <td data-label="Property">
                                 <div class="property-cell">
                                     <img src="${app.property.image_url || 'https://via.placeholder.com/100'}" alt="${app.property.title}">
                                     <div>
@@ -355,10 +420,10 @@
                                     </div>
                                 </div>
                             </td>
-                            <td>Landlord (ID: ${app.property.owner_id || 'N/A'})</td>
-                            <td>${new Date(app.applied_at).toLocaleDateString()}</td>
-                            <td><span class="badge badge-${app.status.toLowerCase()}">${app.status}</span></td>
-                            <td>
+                            <td data-label="Landlord">Landlord (ID: ${app.property.owner_id || 'N/A'})</td>
+                            <td data-label="Date">${new Date(app.applied_at).toLocaleDateString()}</td>
+                            <td data-label="Status"><span class="badge badge-${app.status.toLowerCase()}">${app.status}</span></td>
+                            <td data-label="Action">
                                 <a href="../../property-detail.html?id=${app.property.id}" class="btn-outline btn-sm" style="padding: 0.25rem 0.5rem; font-size: 0.8rem; text-decoration: none;">View</a>
                                 <a href="pages/chat.html?chat_with=${app.property.owner_id}" class="btn btn-primary btn-sm" style="padding: 0.25rem 0.5rem; font-size: 0.8rem; text-decoration: none; margin-left: 0.5rem;"><i class="fas fa-comment"></i> Chat</a>
                             </td>
