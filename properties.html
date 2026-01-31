@@ -18,27 +18,30 @@
         .page-header {
             background-color: var(--bg-dark);
             color: white;
-            padding: 120px 0 60px;
+            padding: 140px 0 60px;
             text-align: center;
+            background: radial-gradient(circle at center, rgba(21, 27, 43, 0.8) 0%, rgba(11, 15, 25, 1) 100%);
         }
 
         .page-header h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
         }
 
         .page-header p {
-            color: rgba(255, 255, 255, 0.7);
+            color: var(--text-muted);
             max-width: 600px;
             margin: 0 auto;
+            font-size: 1.1rem;
         }
 
         .filter-section {
-            background: white;
-            padding: 2rem 0;
-            border-bottom: 1px solid #eee;
+            background: var(--bg-card);
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--border-light);
             position: sticky;
-            top: 80px;
+            top: 70px;
             z-index: 90;
             box-shadow: var(--shadow-sm);
         }
@@ -49,12 +52,10 @@
             gap: 1rem;
         }
 
+        /* Inputs handled by global overrides, but ensuring specific overrides here if needed */
         .filter-group select,
         .filter-group input {
             width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #ddd;
-            border-radius: var(--radius);
         }
     </style>
 </head>
@@ -62,21 +63,20 @@
 <body>
 
     <!-- Navbar -->
-    <nav class="navbar" style="background: white; box-shadow: var(--shadow-sm);">
+    <nav class="navbar scrolled">
         <div class="container flex-between">
             <a href="index.html" class="logo">
-                <img src="assets/images/logo.png" alt="Oluwanjoba Homes" class="logo-img">
-                Oluwanjoba <span>Homes</span>
+                <i class="fas fa-home-alt"></i> Oluwanjoba <span>Homes</span>
             </a>
             <ul class="nav-links">
-                <li><a href="index.html" style="color: var(--text-main);">Home</a></li>
-                <li><a href="properties.html" class="active" style="color: var(--primary);">Properties</a></li>
-                <li><a href="about.html" style="color: var(--text-main);">About Us</a></li>
-                <li><a href="contact.html" style="color: var(--text-main);">Contact</a></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="properties.html" class="active">Properties</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
                 <li><a href="login.html" class="btn btn-outline">Login</a></li>
                 <li><a href="signup.html" class="btn btn-primary">Join Now</a></li>
             </ul>
-            <button class="mobile-menu-btn" style="color: var(--bg-dark);"><i class="fas fa-bars"></i></button>
+            <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
         </div>
     </nav>
 
@@ -130,9 +130,6 @@
     <footer class="footer">
         <div class="container grid-4">
             <div class="footer-brand">
-                <a href="#" class="logo text-white">
-                    <i class="fas fa-home-alt"></i> Oluwanjoba <span>Homes</span>
-                </a>
                 <p>Leading the market in modern property rentals and management solutions.</p>
                 <div class="socials">
                     <a href="#"><i class="fab fa-facebook"></i></a>
@@ -165,7 +162,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 Oluwanjoba Homes. All rights reserved.</p>
+            <p>&copy; 2026. All rights reserved.</p>
         </div>
     </footer>
 
