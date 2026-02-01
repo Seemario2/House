@@ -9,7 +9,7 @@ import os
 import uuid
 from fastapi.staticfiles import StaticFiles
 
-from .models import Base, User, Property, Application, Message, BlogPost, Favorite
+from .models import Base, User, Property, Application, Message, BlogPost, Favorite, Tour
 from .auth import get_password_hash, verify_password, create_access_token, decode_token
 from dotenv import load_dotenv
 from supabase import create_client, Client
@@ -471,9 +471,26 @@ def remove_favorite(property_id: int, db: Session = Depends(get_db), current_use
     db.commit()
     return {"message": "Removed from favorites"}
 
-    db.delete(fav)
+# --- Tour Endpoints ---
+
+@app.post("/api/tours")
+def request_tour(data: dict, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    if not data.get("property_id") or not data.get("tour_date"):
+        raise HTTPException(status_code=400, detail="Missing property_id or tour_date")
+    
+    prop = db.query(Property).get(data["property_id"])
+    if not prop: raise HTTPException(status_code=404, detail="Property not found")
+
+    try:
+        tour_date = datetime.fromisoformat(data["tour_date"].replace('Z', '+00:00'))
+    except:
+        tour_date = datetime.utcnow()
+
+    new_tour = Tour(property_id=data["property_id"], user_id=current_user.id, tour_date=tour_date)
+    db.add(new_tour)
     db.commit()
-    return {"message": "Removed from favorites"}
+    
+    return {"message": "Tour request submitted successfully"}
 
 # --- File Uploads ---
 import shutil

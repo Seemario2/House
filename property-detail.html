@@ -11,6 +11,10 @@
         rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/globals.css">
     <link rel="stylesheet" href="css/index.css">
@@ -478,11 +482,15 @@
                                 <label>Interest Rate (%)</label>
                                 <input type="number" id="calcRate" value="3.5" step="0.1">
                             </div>
-                            <button id="calcBtn" class="btn btn-outline w-full">Calculate</button>
+                            <button id="calcBtn" class="btn btn-outline w-full" style="margin-top: 1rem;">Calculate
+                                Payment</button>
 
                             <div class="calc-result" id="calcResult" style="display: none;">
                                 <p style="font-size: 0.9rem; margin-bottom: 0.5rem;">Estimated Monthly Payment</p>
                                 <h4 id="calcMonthly">$0</h4>
+                                <div style="margin-top: 1.5rem; height: 200px; position: relative;">
+                                    <canvas id="mortgageChart"></canvas>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -530,12 +538,12 @@
 
                 // Use real images if available, otherwise mock
                 let galleryImages = prop.images && prop.images.length > 0 ? prop.images : [prop.image_url];
-                
+
                 // If only one image (main), maybe add some placeholders if you really want a gallery feel, 
                 // but for now let's just show what we have.
                 if (galleryImages.length === 1 && (!prop.images || prop.images.length === 0)) {
-                     // Fallback mock if completely empty of extra images
-                     galleryImages = [
+                    // Fallback mock if completely empty of extra images
+                    galleryImages = [
                         prop.image_url,
                         'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=300&q=80',
                         'https://images.unsplash.com/photo-1484154218962-a1c19b5d29b2?auto=format&fit=crop&w=300&q=80',
@@ -602,23 +610,64 @@
                 // Calculator Setup
                 const priceInput = document.getElementById('calcPrice');
                 const downInput = document.getElementById('calcDown');
+                const rateInput = document.getElementById('calcRate');
+
                 priceInput.value = prop.price * 12 * 15; // Mock sale price
                 downInput.value = Math.floor(priceInput.value * 0.2);
 
-                document.getElementById('calcBtn').addEventListener('click', () => {
+                let calcChart = null;
+
+                const updateCalculator = () => {
                     const price = parseFloat(priceInput.value) || 0;
                     const down = parseFloat(downInput.value) || 0;
-                    const P = price - down;
-                    const r = parseFloat(document.getElementById('calcRate').value) / 100 / 12;
-                    const terms = 30; // Default to 30 years as input is removed
-                    const n = terms * 12;
+                    const r = parseFloat(rateInput.value) || 0;
+                    const years = 30; // Fixed for now
+                    const n = years * 12;
+                    const loanAmount = price - down;
 
-                    if (P > 0) {
-                        const m = P * r * (Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
-                        document.getElementById('calcMonthly').textContent = `₦${m.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-                        document.getElementById('calcResult').style.display = 'block';
+                    // Monthly interest rate
+                    const monthlyRate = (r / 100) / 12;
+
+                    let monthlyPayment = 0;
+                    if (monthlyRate === 0) {
+                        monthlyPayment = loanAmount / n;
+                    } else {
+                        monthlyPayment = (loanAmount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -n));
                     }
-                });
+
+                    if (monthlyPayment < 0 || isNaN(monthlyPayment)) monthlyPayment = 0;
+
+                    const totalInterest = (monthlyPayment * n) - loanAmount;
+                    const monthlyInterest = monthlyPayment * (1 - (loanAmount / (monthlyPayment * n))); // Rough approx for pie
+
+                    document.getElementById('calcMonthly').textContent = `₦${monthlyPayment.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+                    document.getElementById('calcResult').style.display = 'block';
+
+                    // Update Chart
+                    if (calcChart) calcChart.destroy();
+                    const ctx = document.getElementById('mortgageChart').getContext('2d');
+                    calcChart = new Chart(ctx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['Principal', 'Interest'],
+                            datasets: [{
+                                data: [loanAmount, totalInterest > 0 ? totalInterest : 0],
+                                backgroundColor: ['#4F46E5', '#E0E7FF'],
+                                borderWidth: 0
+                            }]
+                        },
+                        options: {
+                            cutout: '70%',
+                            plugins: {
+                                legend: { position: 'bottom' }
+                            }
+                        }
+                    });
+                };
+
+                document.getElementById('calcBtn').addEventListener('click', updateCalculator);
+                // Auto calc on load
+                // setTimeout(updateCalculator, 500);
 
 
                 // Similar Properties
@@ -756,10 +805,73 @@
     </style>
     <script>
         // Tour Request Logic
-        document.getElementById('requestTourBtn')?.addEventListener('click', () => {
-            const toast = document.getElementById('toast');
-            toast.classList.add('active');
-            setTimeout(() => toast.classList.remove('active'), 3000);
+        document.getElementById('requestTourBtn')?.addEventListener('click', async () => {
+            const dateInput = document.querySelector('.tour-form input[type="date"]');
+            const timeSelect = document.querySelector('.tour-form select');
+            const btn = document.getElementById('requestTourBtn');
+            const user = JSON.parse(localStorage.getItem('user'));
+
+            if (!user) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            if (!dateInput.value || timeSelect.value === 'Select Time') {
+                alert('Please select a date and time.');
+                return;
+            }
+
+            // Combine date and time
+            // Simple mapping for demo times
+            let timeStr = "12:00"; // default
+            if (timeSelect.value.includes('AM')) {
+                let hour = parseInt(timeSelect.value.split(':')[0]);
+                if (hour === 12) hour = 0;
+                timeStr = `${hour.toString().padStart(2, '0')}:${timeSelect.value.split(':')[1].split(' ')[0]}`;
+            } else if (timeSelect.value.includes('PM')) {
+                let hour = parseInt(timeSelect.value.split(':')[0]);
+                if (hour !== 12) hour += 12;
+                timeStr = `${hour}:${timeSelect.value.split(':')[1].split(' ')[0]}`;
+            }
+
+            const tourDate = `${dateInput.value}T${timeStr}`;
+
+            try {
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+
+                // Call API (using fetch directly since api.js might not have 'requestTour' yet, or we can add it)
+                // Let's assume we call the endpoint directly for now
+                const token = localStorage.getItem('access_token');
+                const params = new URLSearchParams(window.location.search);
+                const propId = params.get('id');
+
+                const response = await fetch('http://localhost:8000/api/tours', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        property_id: propId,
+                        tour_date: tourDate
+                    })
+                });
+
+                if (!response.ok) throw new Error('Failed to request tour');
+
+                const toast = document.getElementById('toast');
+                toast.querySelector('span').textContent = 'Tour requested successfully!';
+                toast.classList.add('active');
+                setTimeout(() => toast.classList.remove('active'), 3000);
+
+                btn.innerHTML = 'Request Sent';
+            } catch (err) {
+                console.error(err);
+                alert('Failed to send request. Please try again.');
+                btn.disabled = false;
+                btn.innerHTML = 'Request Tour';
+            }
         });
     </script>
 </body>

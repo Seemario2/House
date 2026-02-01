@@ -77,3 +77,15 @@ class Favorite(Base):
 
     user = relationship("User", back_populates="favorites")
     property = relationship("Property")
+
+class Tour(Base):
+    __tablename__ = "tours"
+    id = Column(Integer, primary_key=True, index=True)
+    property_id = Column(Integer, ForeignKey("properties.id"))
+    user_id = Column(Integer, ForeignKey("users.id")) # Optional if we allow guests? No, require login for now
+    tour_date = Column(DateTime)
+    status = Column(String, default="pending") # pending, confirmed, cancelled
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    property = relationship("Property")
+    user = relationship("User")
