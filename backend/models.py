@@ -30,7 +30,8 @@ class Property(Base):
     bedrooms = Column(Integer)
     bathrooms = Column(Integer)
     sqft = Column(Integer)
-    image_url = Column(String)
+    image_url = Column(String) # Main image (fallback)
+    images = Column(JSON, default=[]) # List of all image URLs
     owner_id = Column(Integer, ForeignKey("users.id"))
     
     owner = relationship("User", back_populates="properties")

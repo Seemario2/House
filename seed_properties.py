@@ -33,6 +33,12 @@ properties = [
         "bathrooms": 6,
         "sqft": 4500,
         "image_url": "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800",
+        "images": [
+            "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800",
+            "https://images.unsplash.com/photo-1613545325278-f24b0cae1224?auto=format&fit=crop&w=800",
+            "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800",
+            "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800"
+        ],
         "owner_id": 1 # Assumes admin/landlord with ID 1 exists, or nullable?
     },
     {
@@ -45,6 +51,11 @@ properties = [
         "bathrooms": 2,
         "sqft": 1200,
         "image_url": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800",
+        "images": [
+            "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800",
+            "https://images.unsplash.com/photo-1484154218962-a1c19b5d29b2?auto=format&fit=crop&w=800",
+            "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800"
+        ],
         "owner_id": 1
     },
     {
@@ -57,6 +68,11 @@ properties = [
         "bathrooms": 3,
         "sqft": 1800,
         "image_url": "https://images.unsplash.com/photo-1484154218962-a1c19b5d29b2?auto=format&fit=crop&w=800",
+        "images": [
+            "https://images.unsplash.com/photo-1484154218962-a1c19b5d29b2?auto=format&fit=crop&w=800",
+            "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800",
+            "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&w=800"
+        ],
         "owner_id": 1
     }
 ]

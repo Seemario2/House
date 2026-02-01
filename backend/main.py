@@ -165,40 +165,71 @@ def get_landlord_properties(landlord_id: int, db: Session = Depends(get_db)):
 @app.post("/api/properties")
 def add_property(data: dict, db: Session = Depends(get_db)):
     # Handle Base64 Image if present
-    if "image_url" in data and data["image_url"].startswith("data:image"):
+    # Handle Multiple Images
+    processed_images = []
+    if "images" in data and isinstance(data["images"], list):
+        for img_str in data["images"]:
+            if img_str.startswith("data:image"):
+                try:
+                    header, encoded = img_str.split(",", 1)
+                    extension = header.split("/")[1].split(";")[0]
+                    if extension == "jpeg": extension = "jpg"
+                    
+                    filename = f"{uuid.uuid4()}.{extension}"
+                    
+                    if supabase:
+                        image_data = base64.b64decode(encoded)
+                        supabase.storage.from_(SUPABASE_BUCKET).upload(
+                            path=filename,
+                            file=image_data,
+                            file_options={"content-type": header.split(":")[1].split(";")[0]}
+                        )
+                        public_url = supabase.storage.from_(SUPABASE_BUCKET).get_public_url(filename)
+                        processed_images.append(public_url)
+                    else:
+                        if not os.path.exists("uploads"):
+                            os.makedirs("uploads")
+                        file_path = os.path.join("uploads", filename)
+                        with open(file_path, "wb") as f:
+                            f.write(base64.b64decode(encoded))
+                        processed_images.append(f"http://localhost:8000/uploads/{filename}")
+                except Exception as e:
+                    print(f"Image save error: {e}")
+                    # Skip failed image
+            else:
+                # Assume it's already a URL
+                processed_images.append(img_str)
+    
+    # Handle Legacy Single Image (if provided as base64 but valid images list might already cover it)
+    # If images were processed, use the first one as main image_url if not set
+    if processed_images:
+        data["image_url"] = processed_images[0]
+        data["images"] = processed_images
+    elif "image_url" in data and data["image_url"] and data["image_url"].startswith("data:image"):
+        # Fallback for old single image upload behavior
         try:
-            # Extract base64 data
+            # ... (Same logic as before for single image)
             header, encoded = data["image_url"].split(",", 1)
             extension = header.split("/")[1].split(";")[0]
             if extension == "jpeg": extension = "jpg"
-            
             filename = f"{uuid.uuid4()}.{extension}"
             
             if supabase:
-                # Upload to Supabase
                 image_data = base64.b64decode(encoded)
-                supabase.storage.from_(SUPABASE_BUCKET).upload(
-                    path=filename,
-                    file=image_data,
-                    file_options={"content-type": header.split(":")[1].split(";")[0]}
-                )
-                # Get Public URL
-                public_url = supabase.storage.from_(SUPABASE_BUCKET).get_public_url(filename)
-                data["image_url"] = public_url
+                supabase.storage.from_(SUPABASE_BUCKET).upload(path=filename, file=image_data, file_options={"content-type": header.split(":")[1].split(";")[0]})
+                data["image_url"] = supabase.storage.from_(SUPABASE_BUCKET).get_public_url(filename)
             else:
-                 # Fallback to local if Supabase not configured (or just fail)
-                print("Supabase not configured, falling back to local storage")
-                if not os.path.exists("uploads"):
-                    os.makedirs("uploads")
+                if not os.path.exists("uploads"): os.makedirs("uploads")
                 file_path = os.path.join("uploads", filename)
-                with open(file_path, "wb") as f:
-                    f.write(base64.b64decode(encoded))
+                with open(file_path, "wb") as f: f.write(base64.b64decode(encoded))
                 data["image_url"] = f"http://localhost:8000/uploads/{filename}"
-
         except Exception as e:
-            print(f"Image save error: {e}")
-            # Fallback to a placeholder or ignore if it fails
-            data["image_url"] = "https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=800"
+             data["image_url"] = "https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=800"
+    elif "image_url" not in data or not data["image_url"]:
+         data["image_url"] = "https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=800"
+
+    if "images" not in data: # ensure field exists for model
+        data["images"] = []
 
     new_prop_data = {
         "title": data.get("title"),
@@ -209,7 +240,9 @@ def add_property(data: dict, db: Session = Depends(get_db)):
         "bedrooms": data.get("bedrooms"),
         "bathrooms": data.get("bathrooms"),
         "sqft": data.get("sqft"),
+        "sqft": data.get("sqft"),
         "image_url": data.get("image_url"),
+        "images": data.get("images", []),
         "owner_id": data.get("owner_id")
     }
 

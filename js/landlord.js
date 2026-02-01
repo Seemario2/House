@@ -325,10 +325,31 @@ const Dashboard = {
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Publishing...';
 
         if (imageFiles.length > 0) {
-            data.image_url = document.getElementById('featuredImageUrl').value || 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=800';
+            // Process all images
+            try {
+                const imagePromises = Array.from(imageFiles).map(file => {
+                    return new Promise((resolve, reject) => {
+                        const reader = new FileReader();
+                        reader.onload = (e) => resolve(e.target.result);
+                        reader.onerror = (e) => reject(e);
+                        reader.readAsDataURL(file);
+                    });
+                });
+
+                const base64Images = await Promise.all(imagePromises);
+                data.images = base64Images; // Send array of base64 strings
+                data.image_url = base64Images[0]; // Keep primary for backward compatibility
+            } catch (e) {
+                console.error("Image processing error", e);
+                alert("Failed to process images. Please try again.");
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnText;
+                return;
+            }
         } else {
             // Default if no image
             data.image_url = 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=800';
+            data.images = [];
         }
 
         try {

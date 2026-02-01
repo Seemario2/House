@@ -525,20 +525,28 @@
                 const mainImg = document.getElementById('propImg');
                 mainImg.src = prop.image_url;
 
-                // create mock thumbnails (using same image for demo)
                 const galleryGrid = document.getElementById('galleryGrid');
-                // Use a few random unsplash real estate images for variety in mock gallery
-                const mockImages = [
-                    prop.image_url,
-                    'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=300&q=80',
-                    'https://images.unsplash.com/photo-1484154218962-a1c19b5d29b2?auto=format&fit=crop&w=300&q=80',
-                    'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=300&q=80'
-                ];
+                galleryGrid.innerHTML = ''; // Clear existing
 
-                mockImages.forEach((imgSrc, index) => {
+                // Use real images if available, otherwise mock
+                let galleryImages = prop.images && prop.images.length > 0 ? prop.images : [prop.image_url];
+                
+                // If only one image (main), maybe add some placeholders if you really want a gallery feel, 
+                // but for now let's just show what we have.
+                if (galleryImages.length === 1 && (!prop.images || prop.images.length === 0)) {
+                     // Fallback mock if completely empty of extra images
+                     galleryImages = [
+                        prop.image_url,
+                        'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=300&q=80',
+                        'https://images.unsplash.com/photo-1484154218962-a1c19b5d29b2?auto=format&fit=crop&w=300&q=80',
+                        'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=300&q=80'
+                    ];
+                }
+
+                galleryImages.forEach((imgSrc, index) => {
                     const thumb = document.createElement('img');
                     thumb.src = imgSrc;
-                    thumb.className = `gallery-thumb ${index === 0 ? 'active' : ''}`;
+                    thumb.className = `gallery-thumb ${index === 0 && imgSrc === prop.image_url ? 'active' : ''}`;
                     thumb.onclick = () => {
                         document.getElementById('propImg').src = imgSrc;
                         document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
