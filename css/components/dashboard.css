@@ -142,6 +142,19 @@
     color: var(--text-muted);
 }
 
+/* User Info - Compact on Mobile instead of hidden */
+@media (max-width: 768px) {
+    .user-info {
+        display: none;
+        /* Keep hidden by default to save space, but maybe show avatar */
+    }
+
+    .user-profile {
+        padding-left: 0.5rem;
+        border: none;
+    }
+}
+
 /* Responsive Sidebar */
 @media (max-width: 1024px) {
     .sidebar {
